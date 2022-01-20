@@ -1,5 +1,5 @@
 require('./discord/discord.js');
-require('./app/app.js');
+require('./app/bin/www');
 
 // PROCESS ERRORS AND STOP BOT CRASHING
 
