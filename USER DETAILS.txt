@@ -1,0 +1,7 @@
+FRONT END
+
+Run UwAmp.exe as administrator, then go to http://localhost/
+
+http://localhost/wp-login.php
+project9927
+Nmys99K0qZ4N3AmC5n
