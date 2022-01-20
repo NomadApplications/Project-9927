@@ -156,3 +156,8 @@
 ::1 - - [20/Jan/2022:16:37:05 +0000] "GET /wp-admin/update-core.php HTTP/1.1" 200 34106
 ::1 - - [20/Jan/2022:16:37:09 +0000] "POST /wp-admin/update-core.php?action=do-translation-upgrade HTTP/1.1" 200 33374
 ::1 - - [20/Jan/2022:16:37:13 +0000] "GET /wp-admin/update-core.php HTTP/1.1" 200 33425
+::1 - - [20/Jan/2022:16:42:10 +0000] "GET /wp-includes/css/admin-bar.min.css?ver=5.8.3 HTTP/1.1" 200 19751
+::1 - - [20/Jan/2022:16:42:08 +0000] "GET / HTTP/1.1" 200 17773
+::1 - - [20/Jan/2022:16:42:11 +0000] "GET /favicon.ico HTTP/1.1" 404 308
+::1 - - [20/Jan/2022:16:42:12 +0000] "GET /wp-admin/ HTTP/1.1" 200 79976
+::1 - - [20/Jan/2022:16:42:14 +0000] "POST /wp-admin/admin-ajax.php HTTP/1.1" 200 1475

@@ -148,3 +148,45 @@ PHP Warning:  PHP Startup: Unable to load dynamic library 'curl' (tried: C:/User
 PHP Warning:  PHP Startup: Unable to load dynamic library 'curl' (tried: C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\curl (The specified module could not be found.), C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\php_curl.dll (The specified procedure could not be found.)) in Unknown on line 0
 [Thu Jan 20 16:36:42.677672 2022] [mpm_winnt:notice] [pid 4280:tid 588] AH00354: Child: Starting 64 worker threads.
 [Thu Jan 20 16:37:33.643742 2022] [mpm_winnt:crit] [pid 4280:tid 588] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Thu Jan 20 16:42:01.626035 2022] [ssl:warn] [pid 9108:tid 660] AH01906: main-serveur:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Thu Jan 20 16:42:01.627035 2022] [ssl:warn] [pid 9108:tid 660] AH01909: main-serveur:443:0 server certificate does NOT include an ID which matches the server name
+[Thu Jan 20 16:42:01.657045 2022] [core:warn] [pid 9108:tid 660] AH00098: pid file C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Thu Jan 20 16:42:01.714054 2022] [ssl:warn] [pid 9108:tid 660] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu Jan 20 16:42:01.714054 2022] [ssl:warn] [pid 9108:tid 660] AH01906: main-serveur:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Thu Jan 20 16:42:01.714054 2022] [ssl:warn] [pid 9108:tid 660] AH01909: main-serveur:443:0 server certificate does NOT include an ID which matches the server name
+PHP Warning:  PHP Startup: Unable to load dynamic library 'curl' (tried: C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\curl (The specified module could not be found.), C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\php_curl.dll (The specified procedure could not be found.)) in Unknown on line 0
+[Thu Jan 20 16:42:01.891055 2022] [mpm_winnt:notice] [pid 9108:tid 660] AH00455: Apache/2.4.18 (Win32) OpenSSL/1.0.2f PHP/7.2.7 configured -- resuming normal operations
+[Thu Jan 20 16:42:01.891055 2022] [mpm_winnt:notice] [pid 9108:tid 660] AH00456: Server built: Jan 28 2016 09:58:25
+[Thu Jan 20 16:42:01.891055 2022] [core:notice] [pid 9108:tid 660] AH00094: Command line: 'C:\\Users\\Nath\\Desktop\\Repos\\Project-9927\\frontend\\bin\\apache\\bin\\httpd.exe -d C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/apache -f C:\\Users\\Nath\\Desktop\\Repos\\Project-9927\\frontend\\bin\\apache\\conf\\httpd.conf'
+[Thu Jan 20 16:42:01.896055 2022] [mpm_winnt:notice] [pid 9108:tid 660] AH00418: Parent: Created child process 10964
+[Thu Jan 20 16:42:02.435828 2022] [ssl:warn] [pid 10964:tid 612] AH01906: main-serveur:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Thu Jan 20 16:42:02.435828 2022] [ssl:warn] [pid 10964:tid 612] AH01909: main-serveur:443:0 server certificate does NOT include an ID which matches the server name
+[Thu Jan 20 16:42:02.514827 2022] [ssl:warn] [pid 10964:tid 612] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu Jan 20 16:42:02.515828 2022] [ssl:warn] [pid 10964:tid 612] AH01906: main-serveur:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Thu Jan 20 16:42:02.515828 2022] [ssl:warn] [pid 10964:tid 612] AH01909: main-serveur:443:0 server certificate does NOT include an ID which matches the server name
+PHP Warning:  PHP Startup: Unable to load dynamic library 'curl' (tried: C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\curl (The specified module could not be found.), C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\php_curl.dll (The specified procedure could not be found.)) in Unknown on line 0
+[Thu Jan 20 16:42:02.531828 2022] [mpm_winnt:notice] [pid 10964:tid 612] AH00354: Child: Starting 64 worker threads.
+[Thu Jan 20 16:42:04.299184 2022] [mpm_winnt:crit] [pid 10964:tid 612] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Thu Jan 20 16:42:04.299184 2022] [mpm_winnt:warn] [pid 10964:tid 600] (OS 995)The I/O operation has been aborted because of either a thread exit or an application request.  : AH00341: winnt_accept: Asynchronous AcceptEx failed.
+[Thu Jan 20 16:42:04.299184 2022] [mpm_winnt:warn] [pid 10964:tid 792] (OS 995)The I/O operation has been aborted because of either a thread exit or an application request.  : AH00341: winnt_accept: Asynchronous AcceptEx failed.
+[Thu Jan 20 16:42:04.299184 2022] [mpm_winnt:warn] [pid 10964:tid 584] (OS 995)The I/O operation has been aborted because of either a thread exit or an application request.  : AH00341: winnt_accept: Asynchronous AcceptEx failed.
+[Thu Jan 20 16:42:04.299184 2022] [mpm_winnt:warn] [pid 10964:tid 776] (OS 995)The I/O operation has been aborted because of either a thread exit or an application request.  : AH00341: winnt_accept: Asynchronous AcceptEx failed.
+[Thu Jan 20 16:42:05.902435 2022] [ssl:warn] [pid 6800:tid 624] AH01906: main-serveur:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Thu Jan 20 16:42:05.903434 2022] [ssl:warn] [pid 6800:tid 624] AH01909: main-serveur:443:0 server certificate does NOT include an ID which matches the server name
+[Thu Jan 20 16:42:05.927792 2022] [core:warn] [pid 6800:tid 624] AH00098: pid file C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Thu Jan 20 16:42:05.981013 2022] [ssl:warn] [pid 6800:tid 624] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu Jan 20 16:42:05.981013 2022] [ssl:warn] [pid 6800:tid 624] AH01906: main-serveur:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Thu Jan 20 16:42:05.981013 2022] [ssl:warn] [pid 6800:tid 624] AH01909: main-serveur:443:0 server certificate does NOT include an ID which matches the server name
+PHP Warning:  PHP Startup: Unable to load dynamic library 'curl' (tried: C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\curl (The specified module could not be found.), C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\php_curl.dll (The specified procedure could not be found.)) in Unknown on line 0
+[Thu Jan 20 16:42:05.992999 2022] [mpm_winnt:notice] [pid 6800:tid 624] AH00455: Apache/2.4.18 (Win32) OpenSSL/1.0.2f PHP/7.2.7 configured -- resuming normal operations
+[Thu Jan 20 16:42:05.992999 2022] [mpm_winnt:notice] [pid 6800:tid 624] AH00456: Server built: Jan 28 2016 09:58:25
+[Thu Jan 20 16:42:05.992999 2022] [core:notice] [pid 6800:tid 624] AH00094: Command line: 'C:\\Users\\Nath\\Desktop\\Repos\\Project-9927\\frontend\\bin\\apache\\bin\\httpd.exe -d C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/apache -f C:\\Users\\Nath\\Desktop\\Repos\\Project-9927\\frontend\\bin\\apache\\conf\\httpd.conf'
+[Thu Jan 20 16:42:05.998756 2022] [mpm_winnt:notice] [pid 6800:tid 624] AH00418: Parent: Created child process 10256
+[Thu Jan 20 16:42:06.519662 2022] [ssl:warn] [pid 10256:tid 624] AH01906: main-serveur:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Thu Jan 20 16:42:06.520636 2022] [ssl:warn] [pid 10256:tid 624] AH01909: main-serveur:443:0 server certificate does NOT include an ID which matches the server name
+[Thu Jan 20 16:42:06.595856 2022] [ssl:warn] [pid 10256:tid 624] AH01873: Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu Jan 20 16:42:06.595856 2022] [ssl:warn] [pid 10256:tid 624] AH01906: main-serveur:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Thu Jan 20 16:42:06.595856 2022] [ssl:warn] [pid 10256:tid 624] AH01909: main-serveur:443:0 server certificate does NOT include an ID which matches the server name
+PHP Warning:  PHP Startup: Unable to load dynamic library 'curl' (tried: C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\curl (The specified module could not be found.), C:/Users/Nath/Desktop/Repos/Project-9927/frontend/bin/php/php-7.2.7/ext\\php_curl.dll (The specified procedure could not be found.)) in Unknown on line 0
+[Thu Jan 20 16:42:06.609858 2022] [mpm_winnt:notice] [pid 10256:tid 624] AH00354: Child: Starting 64 worker threads.
+[Thu Jan 20 16:42:20.322674 2022] [mpm_winnt:crit] [pid 10256:tid 624] AH02538: Child: Parent process exited abruptly. Child process is ending
