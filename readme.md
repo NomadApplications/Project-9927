@@ -7,7 +7,11 @@
 - Reminders
 - Tasks/To Do Lists
 - Teams - invite other people
+
+## Versions
+
+Currently in development.. No versions are currently up.
+
+## External Links
+
 - 
-
-
-https://pandao.github.io/editor.md/en.html
