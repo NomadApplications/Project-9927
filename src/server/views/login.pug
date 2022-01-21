@@ -1,0 +1,28 @@
+doctype html
+title='Login Page'
+
+h1='Login below!'
+a(href='/signup') If you don't have an account, sign-up here!
+#signup
+    form(action='javascript:login()', method='GET')
+        p
+            | username:
+            input(id='username', value='', type='text')
+            | password:
+            input(id='password', value='', type='text')
+            input(type='submit', value='Submit')
+
+script.
+    async function login(){
+        const info = await fetch('http://localhost:3000/api/login', {
+            method: 'GET',
+            headers: {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            }
+        });
+        const valid = await info.json();
+        if(valid){
+            location.replace('http://localhost:3000/');
+        }
+    }

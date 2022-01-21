@@ -14,4 +14,7 @@ Currently in development.. No versions are currently up.
 
 ## External Links
 
-- 
+- [Backend project board](https://github.com/NomadApplications/Project-9927/projects/1)
+- [Frontend project board](https://github.com/NomadApplications/Project-9927/projects/2)
+- [Main GitHub page](https://github.com/NomadApplications/Project-9927)
+- [Discord Server](https://discord.gg/rNYECeQMXT)
