@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb://localhost:27017/project9927';
 const User = require('./schemas/User');
+
+const username = 'project9927';
+const password = process.env.AUTH_KEY;
+const cluster = 'project9227';
+const dbname = 'project9927';
 
 /**
  * Starts the database and returns the db object
@@ -11,7 +15,12 @@ function startDatabase(){
         useNewUrlParser: true,
         useUnifiedTopology: true
     };
-    mongoose.connect(mongoDB).catch(err => console.error(err));
+    mongoose.connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`,{
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
+    }).catch(err => console.error(err));
+    
     const db = mongoose.connection;
 
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
