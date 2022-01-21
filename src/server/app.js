@@ -72,6 +72,8 @@ class Server {
     }
 }
 
+console.log(`http://localhost:${defaultPort}`)
+
 module.exports = {
     startServer,
     Server
