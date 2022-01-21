@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const User = require('./schemas/User');
 
 const username = 'project9927';
-const password = process.env.AUTH_KEY;
+const password = process.env.ADMIN_AUTH;
 const cluster = 'project9227';
 const dbname = 'project9927';
 
@@ -10,17 +10,13 @@ const dbname = 'project9927';
  * Starts the database and returns the db object
  * @returns {Promise<mongoose.Connection>} Database connection object
  */
-function startDatabase(){
+function startDatabase() {
     const options = {
         useNewUrlParser: true,
         useUnifiedTopology: true
     };
-    mongoose.connect(`mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`,{
-        useNewUrlParser: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true
-    }).catch(err => console.error(err));
-    
+    mongoose.connect(`mongodb+srv://${username}:${password}@project9927.lou4o.mongodb.net/project9927`, {}).catch(err => console.error(err));
+
     const db = mongoose.connection;
 
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -35,8 +31,8 @@ function startDatabase(){
  * @param {mongoose.Model} model
  */
 function saveModel(model) {
-    model.save(function(err) {
-        if(err) return;
+    model.save(function (err) {
+        if (err) return;
     })
 }
 
