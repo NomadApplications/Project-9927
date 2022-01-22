@@ -1,15 +1,18 @@
 doctype html
-title='Login Page'
+head
+    title='Login Page'
+    link(rel='stylesheet', href='/public/stylesheets/style.css')
 
 h1='Login below!'
 a(href='/signup') If you don't have an account, sign-up here!
 #signup
     form(action='javascript:login()', method='GET')
+        p(class="invisible" style="color: indianred;" id="error") Error
         p
             | username:
             input(id='username', value='', type='text')
             | password:
-            input(id='password', value='', type='text')
+            input(id='password', value='', type='password')
             input(type='submit', value='Submit')
 
 script.
@@ -23,6 +26,11 @@ script.
         });
         const valid = await info.json();
         if(valid){
-            location.replace('http://localhost:3000/');
+            location.replace('/');
+        } else {
+            const errorText = document.getElementById('error');
+            errorText.classList.remove('invisible');
+            errorText.classList.add('visible');
+            errorText.innerHTML = "Incorrect username or password!";
         }
     }
