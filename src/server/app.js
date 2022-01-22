@@ -13,12 +13,12 @@ const User = require('./database/schemas/User')
  * @param {number} port Which port you want to set the server to
  * @returns {Promise<Server>} Promise representation of the server
  */
-async function startServer(port= 3000) {
+async function startServer(port = 3000) {
     const db = await database.startDatabase();
 
     const app = express();
 
-    app.use(express.urlencoded({ extended: true }));
+    app.use(express.urlencoded({extended: true}));
     app.use(express.json());
     app.use(bodyParser.json());
 
@@ -41,14 +41,14 @@ async function startServer(port= 3000) {
     });
 
     app.get('/', async (req, res) => {
-        const user = await User.findOne({_id:req.session.userId}).exec();
+        const user = await User.findOne({_id: req.session.userId}).exec();
         res.render('layout', {
             title: 'Project 9927',
             user
         });
     })
 
-    app.get('/login', (req, res) =>  res.render('login'));
+    app.get('/login', (req, res) => res.render('login'));
     app.get('/signup', (req, res) => res.render('signup'));
 
     app.use('/api', require('./api/api'));

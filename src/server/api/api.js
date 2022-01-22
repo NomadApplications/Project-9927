@@ -1,6 +1,6 @@
 const express = require('express');
 const fetch = require('node-fetch');
-const headers = { 'Content-Type': 'application/json' };
+const headers = {'Content-Type': 'application/json'};
 
 const User = require('../database/schemas/User');
 const database = require('../database/database');
@@ -17,21 +17,31 @@ router.get('/', (req, res) => {
 
 router.get('/login', async (req, res) => {
     const user = await User.findOne({username: req.headers.username}).exec();
-    if(user === null) return res.send(false);
+    if (user === null) return res.send(false);
     const valid = user.password === req.headers.password;
-    if(valid){
+    if (valid) {
         req.session.userId = user._id;
     }
     res.send(valid);
 })
 
+router.get('/logout', async (req, res) => {
+    try {
+        req.session = null;
+    } catch (e) {
+        console.log(e)
+    } finally {
+        res.redirect('/');
+    }
+})
+
 router.get('/signup', async (req, res) => {
     const userCheck = await User.findOne({username: req.headers.username}).exec();
-    if(userCheck !== null){
+    if (userCheck !== null) {
         res.send({error: "There is already a user with this username!"});
         return;
     }
-    if(req.headers.password === ''){
+    if (req.headers.password === '') {
         res.send({error: `${req.headers.password} is not a valid password!`});
         return;
     }
@@ -49,7 +59,7 @@ router.get('/valid_user', async (req, res) => res.send(await database.userExists
 
 router.post('/new_user', async (req, res) => {
     const data = null;
-    if(!await database.userExists(data.username)){
+    if (!await database.userExists(data.username)) {
         const user = new User({
             username: data.username,
             display_name: data.username,
