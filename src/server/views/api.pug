@@ -1,0 +1,20 @@
+doctype html
+head
+    link(rel='stylesheet', href='/public/stylesheets/style.css')
+body
+    h1(style="font-weight: 200;")
+        | This is the API server! How'd you get here? Redirecting in
+        b
+            span(id="seconds")  5
+        |  seconds!
+script.
+    let counter = 5;
+    const interval = setInterval(() => {
+        counter--;
+        if (counter === 0) {
+            clearInterval(interval);
+            location.replace('/');
+        } else {
+            document.getElementById('seconds').innerHTML = ' ' + counter;
+        }
+    }, 1000);

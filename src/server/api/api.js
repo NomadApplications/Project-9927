@@ -2,6 +2,8 @@ const express = require('express');
 const fetch = require('node-fetch');
 const headers = {'Content-Type': 'application/json'};
 
+const passwordEncryptor = require('../../utils/password');
+
 const User = require('../database/schemas/User');
 const database = require('../database/database');
 
@@ -10,15 +12,13 @@ const endpoints = require('./apiEndpoints');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const username = 'test';
-    const password = 'admin';
-    res.redirect(`/api/login?username=${username}&password=${password}`);
+    res.render('api')
 })
 
 router.get('/login', async (req, res) => {
     const user = await User.findOne({username: req.headers.username}).exec();
     if (user === null) return res.send(false);
-    const valid = user.password === req.headers.password;
+    const valid = await passwordEncryptor.isPassword(user.password, req.headers.password);
     if (valid) {
         req.session.userId = user._id;
     }
@@ -45,10 +45,13 @@ router.get('/signup', async (req, res) => {
         res.send({error: `${req.headers.password} is not a valid password!`});
         return;
     }
+    const pass = await passwordEncryptor.hashPassword(req.headers.password);
     const newUser = new User({
         username: req.headers.username,
         display_name: req.headers.username + Math.floor(Math.random() * 100),
-        password: req.headers.password
+        password: pass,
+        email: req.headers.email,
+        email_list: req.headers.email_list
     });
     database.saveModel(newUser);
     req.session.userId = newUser._id;

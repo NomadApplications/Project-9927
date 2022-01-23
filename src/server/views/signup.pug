@@ -2,18 +2,26 @@ doctype html
 head
     title='Signup Page'
     link(rel='stylesheet', href='/public/stylesheets/style.css')
+    link(rel='stylesheet', href='/public/stylesheets/login.css')
 
 h1='Signup below!'
 a(href='/login') If you already have an account, login here!
-#signup
+div(class='signup')
     form(action='javascript:signup()', method='GET')
         p(class="invisible" style="color: indianred;" id="error") Error
-        p
-            | username:
+        div
+            label(for="username") Username:
             input(id='username', value='', type='text')
-            | password:
+        div
+            label(for="password") Password:
             input(id='password', value='', type='password')
-            input(type='submit', value='Submit')
+        div
+            label(for="email") Email:
+            input(id='email', value='', type='email')
+        div
+            label(for="email_list") Would you like to sign up for our email forum?
+            input(id='email_list', checked, type='checkbox')
+        input(type='submit', value='Login')
 
 script.
     async function signup(){
@@ -21,7 +29,9 @@ script.
             method: 'GET',
             headers: {
                 username: document.getElementById('username').value,
-                password: document.getElementById('password').value
+                password: document.getElementById('password').value,
+                email: document.getElementById('email').value,
+                email_list: document.getElementById('email_list').checked,
             }
         });
         const json = await info.json();

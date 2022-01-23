@@ -14,6 +14,15 @@ const UserSchema = new Schema({
         type: Schema.Types.String,
         required: true
     },
+    email: {
+        type: Schema.Types.String,
+        required: true
+    },
+    email_list: {
+        type: Schema.Types.Boolean,
+        required: false,
+        default: false
+    },
     uuid: {
         type: Schema.Types.ObjectId,
         required: false

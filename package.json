@@ -33,6 +33,7 @@
     "pug": "^3.0.2"
   },
   "devDependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^14.2.0"
   }
 }

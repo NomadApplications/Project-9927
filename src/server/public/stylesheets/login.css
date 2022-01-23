@@ -1,0 +1,7 @@
+label {
+    display: block;
+}
+
+input[type='submit'], label {
+    margin-top: 1rem;
+}

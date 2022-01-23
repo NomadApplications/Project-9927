@@ -2,18 +2,20 @@ doctype html
 head
     title='Login Page'
     link(rel='stylesheet', href='/public/stylesheets/style.css')
+    link(rel='stylesheet', href='/public/stylesheets/login.css')
 
 h1='Login below!'
 a(href='/signup') If you don't have an account, sign-up here!
-#signup
+div(class="signup")
     form(action='javascript:login()', method='GET')
         p(class="invisible" style="color: indianred;" id="error") Error
-        p
-            | username:
+        div
+            label(for="username") Username:
             input(id='username', value='', type='text')
-            | password:
+        div
+            label(for="password") Password:
             input(id='password', value='', type='password')
-            input(type='submit', value='Submit')
+        input(type='submit', value='Login')
 
 script.
     async function login(){
