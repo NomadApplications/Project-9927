@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const ToDo = require('./ToDo');
+
 const UserSchema = new Schema({
     username: {
         type: Schema.Types.String,
-        required: true
+        required: true,
+        unique: true
     },
     display_name: {
         type: Schema.Types.String,
@@ -27,7 +30,14 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: false
     },
-    teams: []
+    teams: {
+        type: Schema.Types.Array,
+        required: false
+    },
+    to_do: {
+        type: Schema.Types.Map,
+        required: true,
+    }
 });
 
 const UserModel = mongoose.model('UserModel', UserSchema);

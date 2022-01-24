@@ -7,6 +7,7 @@ const defaultPort = 3000;
 
 const database = require('./database/database');
 const User = require('./database/schemas/User')
+const Team = require('./database/schemas/Team')
 
 /**
  * Starts the server on the specified port
@@ -50,6 +51,26 @@ async function startServer(port = 3000) {
 
     app.get('/login', (req, res) => res.render('login'));
     app.get('/signup', (req, res) => res.render('signup'));
+    app.get('/profile', async (req, res) => {
+        if(!req.session.userId) {
+            res.redirect('/login');
+            return;
+        }
+        const user = await User.findOne({_id: req.session.userId}).exec();
+        const teams = [];
+        for(let i = 0; i < user.teams.length; i++){
+            const team = await Team.findOne({_id: user.teams[i]}).exec();
+            console.log(user.teams[i]);
+            if(team !== null)
+                teams.push(team)
+        }
+
+        res.render('user/profile', {
+            title: user.display_name + "'s profile | Project 9927",
+            user,
+            teams
+        });
+    })
 
     app.use('/api', require('./api/api'));
 

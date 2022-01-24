@@ -1,11 +1,25 @@
 doctype html
 head
     link(rel='stylesheet', href='/public/stylesheets/style.css')
+    style(tyle="text/css").
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+        .vertical {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-weight: 200;
+            gap: 10px;
+        }
 body
-    h1(style="font-weight: 200;")
+    h1(class="vertical")
         | This is the API server! How'd you get here? Redirecting in
-        b
-            span(id="seconds")  5
+        span(id="seconds")  5
         |  seconds!
 script.
     let counter = 5;
@@ -15,6 +29,6 @@ script.
             clearInterval(interval);
             location.replace('/');
         } else {
-            document.getElementById('seconds').innerHTML = ' ' + counter;
+            document.getElementById('seconds').innerHTML = '  ' + counter;
         }
     }, 1000);

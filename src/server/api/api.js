@@ -1,13 +1,11 @@
 const express = require('express');
 const fetch = require('node-fetch');
-const headers = {'Content-Type': 'application/json'};
 
 const passwordEncryptor = require('../../utils/password');
 
 const User = require('../database/schemas/User');
+const Team = require('../database/schemas/Team');
 const database = require('../database/database');
-
-const endpoints = require('./apiEndpoints');
 
 const router = express.Router();
 
@@ -58,18 +56,25 @@ router.get('/signup', async (req, res) => {
     res.send({});
 })
 
-router.get('/valid_user', async (req, res) => res.send(await database.userExists(req.headers.username)));
+router.get('/newteam', async (req, res) => {
+    if(!req.session.userId) return res.send(false);
+    const user = await User.findOne({_id:req.session.userId}).exec();
+    if(user === null) return res.send(false);
 
-router.post('/new_user', async (req, res) => {
-    const data = null;
-    if (!await database.userExists(data.username)) {
-        const user = new User({
-            username: data.username,
-            display_name: data.username,
-            password: data.password
-        });
-        database.saveModel(user);
-    }
+    const newTeam = new Team({
+        name: req.headers.name || user.display_name + "'s team",
+        members: [user._id],
+    });
+    database.saveModel(newTeam);
+
+    console.log("NEW TEAM: " + newTeam._id)
+
+    const teams = user.teams;
+    teams.push(newTeam._id);
+
+    await User.updateOne({_id: req.session.userId}, {teams: teams})
+
+    res.send(true);
 })
 
 module.exports = router;

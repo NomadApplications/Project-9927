@@ -1,0 +1,18 @@
+doctype html
+head
+    title=title
+    link(rel='stylesheet', href='/public/stylesheets/style.css')
+body
+    div(class="teams")
+        h1 Teams
+        button(onclick="newTeam()") New team
+        ul
+            each val in teams
+                li= val.name
+script.
+    function newTeam(){
+        fetch('/api/newteam', {
+            method: "GET",
+            headers: {}
+        })
+    }
