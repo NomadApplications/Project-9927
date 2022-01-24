@@ -15,7 +15,10 @@ function startDatabase() {
         useNewUrlParser: true,
         useUnifiedTopology: true
     };
-    mongoose.connect(`mongodb+srv://${username}:${password}@project9927.lou4o.mongodb.net/project9927`, {}).catch(err => console.error(err));
+    const uri = `mongodb+srv://${username}:${password}@project9927.lou4o.mongodb.net/${dbname}`;
+    mongoose.connect(uri).then((t) => {
+        //console.log(t);
+    }).catch(err => console.error(err));
 
     const db = mongoose.connection;
 
@@ -32,7 +35,10 @@ function startDatabase() {
  */
 function saveModel(model) {
     model.save(function (err) {
-        if (err) return;
+        if (err) {
+            console.error(err);
+            return;
+        }
     })
 }
 

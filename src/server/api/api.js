@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
 router.get('/login', async (req, res) => {
     const user = await User.findOne({username: req.headers.username}).exec();
     if (user === null) return res.send(false);
+    if (user.password === undefined) return res.send(false);
     const valid = await passwordEncryptor.isPassword(user.password, req.headers.password);
     if (valid) {
         req.session.userId = user._id;
@@ -43,16 +44,19 @@ router.get('/signup', async (req, res) => {
         res.send({error: `${req.headers.password} is not a valid password!`});
         return;
     }
+
     const pass = await passwordEncryptor.hashPassword(req.headers.password);
     const newUser = new User({
         username: req.headers.username,
         display_name: req.headers.username + Math.floor(Math.random() * 100),
         password: pass,
         email: req.headers.email,
-        email_list: req.headers.email_list
+        email_list: req.headers.email_list === 'true',
+        to_do: []
     });
     database.saveModel(newUser);
     req.session.userId = newUser._id;
+    console.log(newUser);
     res.send({});
 })
 

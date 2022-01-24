@@ -9,6 +9,7 @@ const database = require('./database/database');
 const User = require('./database/schemas/User')
 const Team = require('./database/schemas/Team')
 
+const passwordEncryptor = require('../utils/password');
 /**
  * Starts the server on the specified port
  * @param {number} port Which port you want to set the server to
@@ -57,10 +58,13 @@ async function startServer(port = 3000) {
             return;
         }
         const user = await User.findOne({_id: req.session.userId}).exec();
+        if(user === null){
+            res.redirect('/login');
+            return;
+        }
         const teams = [];
         for(let i = 0; i < user.teams.length; i++){
             const team = await Team.findOne({_id: user.teams[i]}).exec();
-            console.log(user.teams[i]);
             if(team !== null)
                 teams.push(team)
         }
@@ -71,6 +75,41 @@ async function startServer(port = 3000) {
             teams
         });
     })
+    app.get('/profile/settings', async(req, res) => {
+        if(!req.session.userId) {
+            res.redirect('/login');
+            return;
+        }
+        const user = await User.findOne({_id: req.session.userId}).exec();
+        if(user === null){
+            res.redirect('/login');
+            return;
+        }
+        const teams = [];
+        for(let i = 0; i < user.teams.length; i++){
+            const team = await Team.findOne({_id: user.teams[i]}).exec();
+            if(team !== null)
+                teams.push(team)
+        }
+
+        const isPassword = async (password) => {
+            return await passwordEncryptor.isPassword(user.password, password);
+        }
+
+        const changePassword = async (password) => {
+            const hashed = await passwordEncryptor.hashPassword(password)
+            User.updateOne({_id: user._id}, {password: hashed});
+            req.session = null;
+        }
+
+        res.render('user/settings', {
+            title: user.display_name + "'s profile | Project 9927",
+            user,
+            teams,
+            isPassword,
+            changePassword
+        });
+    });
 
     app.use('/api', require('./api/api'));
 

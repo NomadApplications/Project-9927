@@ -35,8 +35,12 @@ const UserSchema = new Schema({
         required: false
     },
     to_do: {
-        type: Schema.Types.Map,
+        type: "object",
         required: true,
+    },
+    visible: {
+        type: Schema.Types.Boolean,
+        default: true,
     }
 });
 
