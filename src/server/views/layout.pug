@@ -1,16 +1,18 @@
 doctype html
 html
-  head
-    title=title
-    link(rel='stylesheet', href='/public/stylesheets/style.css')
-  body
-    block content
-      if user === null
-        h1="You are not logged in!"
-        a(href='/login') Login here!
-      else
-        h1
-          | Logged in! (
-          a(href="/profile")= user.display_name
-          | )
-        a(href='/api/logout') Logout here!
+    head
+        title=title
+        link(rel='stylesheet', href='/public/stylesheets/style.css')
+    body
+        include includes/head.pug
+        +navbar-include(user)
+        block content
+            if user === null
+                h1="You are not logged in!"
+                a(href='/login') Login here!
+            else
+                h1
+                    | Logged in! (
+                    a(href="/profile")= user.display_name
+                    | )
+                a(href='/api/logout') Logout here!

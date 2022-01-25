@@ -5,3 +5,11 @@ label {
 input[type='submit'], label {
     margin-top: 1rem;
 }
+
+.container {
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #999999;
+    overflow: hidden;
+}

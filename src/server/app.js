@@ -5,6 +5,7 @@ const cookieSession = require('cookie-session');
 
 const defaultPort = 3000;
 
+const ObjectId = require('mongoose').Types.ObjectId;
 const database = require('./database/database');
 const User = require('./database/schemas/User')
 const Team = require('./database/schemas/Team')
@@ -50,7 +51,12 @@ async function startServer(port = 3000) {
         });
     })
 
-    app.get('/login', (req, res) => res.render('login'));
+    app.get('/login', async (req, res) => {
+        const user = await User.findOne({_id: req.session.userId}).exec();
+        res.render('login', {
+            user
+        })
+    });
     app.get('/signup', (req, res) => res.render('signup'));
     app.get('/profile', async (req, res) => {
         if(!req.session.userId) {
@@ -93,6 +99,8 @@ async function startServer(port = 3000) {
         }
 
         const isPassword = async (password) => {
+            console.log(password);
+            console.log(user.password);
             return await passwordEncryptor.isPassword(user.password, password);
         }
 
@@ -110,6 +118,25 @@ async function startServer(port = 3000) {
             changePassword
         });
     });
+
+    app.get('/user/:userId', async(req, res) => {
+        if(!ObjectId.isValid(req.params.userId)){
+            res.render('404');
+            return;
+        }
+        const user = await User.findOne({_id: req.params.userId}).exec();
+        if(user === null){
+            res.render('404');
+            return;
+        }
+        if(!user.visible){
+            res.render('404');
+            return;
+        }
+        res.render('user/publicUser', {
+            user
+        })
+    })
 
     app.use('/api', require('./api/api'));
 

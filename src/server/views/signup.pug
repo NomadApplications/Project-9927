@@ -3,25 +3,28 @@ head
     title='Signup Page'
     link(rel='stylesheet', href='/public/stylesheets/style.css')
     link(rel='stylesheet', href='/public/stylesheets/login.css')
-
-h1='Signup below!'
-a(href='/login') If you already have an account, login here!
-div(class='signup')
-    form(action='javascript:signup()', method='GET')
-        p(class="invisible" style="color: indianred;" id="error") Error
-        div
-            label(for="username") Username:
-            input(id='username', value='', type='text')
-        div
-            label(for="password") Password: (>6 characters)
-            input(id='password', value='', type='password')
-        div
-            label(for="email") Email:
-            input(id='email', value='', type='email')
-        div
-            label(for="email_list") Would you like to sign up for our email forum?
-            input(id='email_list', checked, type='checkbox')
-        input(type='submit', value='Login')
+body
+    include includes/head.pug
+    +navbar-include(user)
+    div(class="container")
+        h1='Signup below!'
+        a(href='/login') If you already have an account, login here!
+        div(class='signup')
+            form(action='javascript:signup()', method='GET')
+                p(class="invisible" style="color: indianred;" id="error") Error
+                div
+                    label(for="username") Username:
+                    input(id='username', value='', type='text')
+                div
+                    label(for="password") Password: (>6 characters)
+                    input(id='password', value='', type='password')
+                div
+                    label(for="email") Email:
+                    input(id='email', value='', type='email')
+                div
+                    label(for="email_list") Would you like to sign up for our email forum?
+                    input(id='email_list', checked, type='checkbox')
+                input(type='submit', value='Sign-up')
 
 script.
     async function signup(){
@@ -41,7 +44,6 @@ script.
             errorText.classList.add('visible');
             errorText.innerHTML = json.error;
         } else {
-            console.log("NO ERROR")
             location.replace('/');
         }
     }

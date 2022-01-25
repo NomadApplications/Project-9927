@@ -41,7 +41,11 @@ router.get('/signup', async (req, res) => {
         return;
     }
     if (req.headers.password === '') {
-        res.send({error: `${req.headers.password} is not a valid password!`});
+        res.send({error: `You must enter a password!`});
+        return;
+    }
+    if(req.headers.password.length < 6) {
+        res.send({error: `Your password must be at least 6 characters`});
         return;
     }
 
@@ -71,14 +75,28 @@ router.get('/newteam', async (req, res) => {
     });
     database.saveModel(newTeam);
 
-    console.log("NEW TEAM: " + newTeam._id)
-
     const teams = user.teams;
     teams.push(newTeam._id);
 
     await User.updateOne({_id: req.session.userId}, {teams: teams})
 
     res.send(true);
+})
+
+router.get('/user/checkpassword', async (req, res) => {
+    if(!req.session.userId) return res.send(false);
+    const user = await User.findOne({_id: req.session.userId}).exec();
+    if(user === null) return res.send(false);
+    return res.send(await passwordEncryptor.isPassword(user.password, req.headers.password));
+})
+
+router.get('/user/changepassword', async(req, res) => {
+    if(!req.session.userId) return res.send(false);
+    const user = await User.findOne({_id: req.session.userId}).exec();
+    if(user === null) return res.send(false);
+    const hashed = await passwordEncryptor.hashPassword(req.headers.password)
+
+    await User.updateOne({_id: user._id}, {password: hashed});
 })
 
 module.exports = router;

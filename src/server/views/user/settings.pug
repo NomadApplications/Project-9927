@@ -4,6 +4,8 @@ head
     link(rel='stylesheet', href='/public/stylesheets/style.css')
     link(rel="stylesheet", href="/public/stylesheets/user/settings.css")
 body
+    include ../includes/head.pug
+    +navbar-include(user)
     div(class="container")
         h1 Profile
         form(action="javascript:updateAccount()")
@@ -35,23 +37,29 @@ body
             p(id="password_error" style="display: none; color: indianred;") Sorry, we couldn't update your password!
             label(for="current_password") Current Password:
             input(id="current_password" type="password" placeholder="Current password..")
-            label(for="new_password") New Password:
+            label(for="new_password") New Password (>6 characters):
             input(id="new_password" type="password" placeholder="New password..")
             label(for="confirm_password") Confirm Password:
             input(id="confirm_password" type="password" placeholder="Confirm password..")
             input(type="submit" value="Update Password")
 script.
-    document.getElementById('email_list').checked = user.email_list;
-    document.getElementById('public_visible').checked = user.visible;
+    document.getElementById('email_list').checked = #{user.email_list};
+    document.getElementById('public_visible').checked = #{user.visible};
 
     async function updatePassword(){
-        const currentPassword = document.getElementById('current_password').value;
-        const newPassword = document.getElementById('new_password').value;
-        const confirmPassword = document.getElementById('confirm_password').value;
+        const currentPassword = document.getElementById('current_password').value || "";
+        const newPassword = document.getElementById('new_password').value || "";
+        const confirmPassword = document.getElementById('confirm_password').value || "";
 
-        const change = await isPassword(currentPassword) && newPassword === confirmPassword;
+        const checkPassword = await (await fetch('/api/user/checkpassword', {
+            method: "GET",
+            headers: {
+                password: currentPassword
+            }
+        })).json();
+        const change = checkPassword && newPassword === confirmPassword && newPassword.length >= 6;
         if(change){
-            changePassword(newPassword);
+            fetch('/api/user/changepassword', {method: "GET", headers: {password: newPassword}})
             location.replace('/');
         } else {
             document.getElementById('password_error').style.display = 'block';

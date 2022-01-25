@@ -1,0 +1,33 @@
+* {
+    transition: all .1s ease-out;
+}
+
+.nav {
+    background: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #999999;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.nav:hover {
+    box-shadow: 2px 2px 2px #999999;
+}
+
+.nav ul {
+    margin: 0 0 0 -40px;
+}
+
+.nav li {
+    list-style: none;
+    display: inline-block;
+    padding: 20px 50px;
+    color: black;
+    text-transform: uppercase;
+    float: left;
+    font-size: 15px;
+}
+
+.nav li:hover {
+    background-color: #ddd;
+}

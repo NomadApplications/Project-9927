@@ -26,22 +26,22 @@ const UserSchema = new Schema({
         required: false,
         default: false
     },
-    uuid: {
-        type: Schema.Types.ObjectId,
-        required: false
-    },
     teams: {
         type: Schema.Types.Array,
         required: false
     },
     to_do: {
-        type: "object",
+        type: Schema.Types.Array,
         required: true,
+    },
+    projects: {
+        type: Schema.Types.Array,
+        required: true
     },
     visible: {
         type: Schema.Types.Boolean,
         default: true,
-    }
+    },
 });
 
 const UserModel = mongoose.model('UserModel', UserSchema);

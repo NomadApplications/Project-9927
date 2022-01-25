@@ -3,6 +3,8 @@ head
     title=title
     link(rel='stylesheet', href='/public/stylesheets/style.css')
 body
+    include ../includes/head.pug
+    +navbar-include(user)
     h1
         a(href="/profile/settings") Settings
     div(class="teams")
