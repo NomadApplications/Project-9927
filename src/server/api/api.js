@@ -73,16 +73,26 @@ router.get('/signup', async (req, res) => {
     mailer.sendMail({
         to: newUser.email,
         subject: 'User Registration: ' + newUser.username,
-        html: `
-        <html>
-            <body>
-                <a href="http://localhost:3000/verify/${vCode}">Verify your account!</a>
-            </body>
-        </html>
-        `
+        text: `\n
+        If your account name is not ${newUser.username} please delete this email.\n
+        Please visit the link below to verify your account!\n
+        http://localhost:3000/api/verify/${vCode}`,
     });
 
     res.send({});
+})
+
+router.get('/verify/:verification_code', async (req, res) => {
+    const vTest = await User.findOne({verification_code: req.params.verification_code}).exec();
+    if(vTest === null) return res.redirect('/404');
+    if (vTest.password === undefined) return res.redirect('/404');
+
+    await User.updateOne({username: vTest.username}, {
+        $set: {
+            verified: true
+        }
+    })
+    res.redirect('/')
 })
 
 router.get('/newteam', async (req, res) => {

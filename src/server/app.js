@@ -138,6 +138,8 @@ async function startServer(port = 3000) {
         })
     })
 
+    app.get("/404", (req, res) => res.render('404'));
+
     app.use('/api', require('./api/api'));
 
     return new Promise((resolve, reject) => {
