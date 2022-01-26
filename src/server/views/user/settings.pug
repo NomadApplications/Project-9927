@@ -26,12 +26,6 @@ body
             input(id="email_list" checked type="checkbox")
             input(type="submit" value="Update Account")
     div(class="container")
-        h1 Online Status
-        form(action="javascript:updateOnline()")
-            label(for="public_visible") Allow users to find you by username?
-            input(id="public_visible" type="checkbox")
-            input(type="submit" value="Update Status")
-    div(class="container")
         h1 Password
         form(action="javascript:updatePassword()")
             p(id="password_error" style="display: none; color: indianred;") Sorry, we couldn't update your password!
@@ -59,7 +53,7 @@ script.
         })).json();
         const change = checkPassword && newPassword === confirmPassword && newPassword.length >= 6;
         if(change){
-            fetch('/api/user/changepassword', {method: "GET", headers: {password: newPassword}})
+            await fetch('/api/user/changepassword', {method: "GET", headers: {password: newPassword}})
             location.replace('/');
         } else {
             document.getElementById('password_error').style.display = 'block';

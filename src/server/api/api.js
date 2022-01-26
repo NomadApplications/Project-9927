@@ -1,6 +1,8 @@
 const express = require('express');
 const fetch = require('node-fetch');
 
+const mailer = require('../../mailer/mailer');
+
 const passwordEncryptor = require('../../utils/password');
 
 const User = require('../database/schemas/User');
@@ -49,6 +51,12 @@ router.get('/signup', async (req, res) => {
         return;
     }
 
+    let d = new Date().getTime();
+    const vCode = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
     const pass = await passwordEncryptor.hashPassword(req.headers.password);
     const newUser = new User({
         username: req.headers.username,
@@ -56,11 +64,24 @@ router.get('/signup', async (req, res) => {
         password: pass,
         email: req.headers.email,
         email_list: req.headers.email_list === 'true',
-        to_do: []
+        to_do: [],
+        verification_code: vCode
     });
     database.saveModel(newUser);
     req.session.userId = newUser._id;
-    console.log(newUser);
+
+    mailer.sendMail({
+        to: newUser.email,
+        subject: 'User Registration: ' + newUser.username,
+        html: `
+        <html>
+            <body>
+                <a href="http://localhost:3000/verify/${vCode}">Verify your account!</a>
+            </body>
+        </html>
+        `
+    });
+
     res.send({});
 })
 

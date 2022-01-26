@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     },
     display_name: {
         type: Schema.Types.String,
-        required: false
+        required: true
     },
     password: {
         type: Schema.Types.String,
@@ -23,12 +23,12 @@ const UserSchema = new Schema({
     },
     email_list: {
         type: Schema.Types.Boolean,
-        required: false,
-        default: false
+        required: true,
+        default: true
     },
     teams: {
         type: Schema.Types.Array,
-        required: false
+        required: true
     },
     to_do: {
         type: Schema.Types.Array,
@@ -42,6 +42,14 @@ const UserSchema = new Schema({
         type: Schema.Types.Boolean,
         default: true,
     },
+    verified: {
+        type: Schema.Types.Boolean,
+        default: false,
+        required: true,
+    },
+    verification_code: {
+        type: Schema.Types.String,
+    }
 });
 
 const UserModel = mongoose.model('UserModel', UserSchema);
