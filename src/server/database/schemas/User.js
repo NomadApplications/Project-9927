@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ToDo = require('./ToDo');
-
 const UserSchema = new Schema({
     username: {
         type: Schema.Types.String,
@@ -17,6 +15,7 @@ const UserSchema = new Schema({
         type: Schema.Types.String,
         required: true
     },
+
     email: {
         type: Schema.Types.String,
         required: true
@@ -26,22 +25,15 @@ const UserSchema = new Schema({
         required: true,
         default: true
     },
-    teams: {
-        type: Schema.Types.Array,
-        required: true
-    },
-    to_do: {
-        type: Schema.Types.Array,
-        required: true,
-    },
-    projects: {
-        type: Schema.Types.Array,
-        required: true
-    },
     visible: {
         type: Schema.Types.Boolean,
         default: true,
     },
+
+    projects: {
+        type: Schema.Types.Array
+    },
+
     verified: {
         type: Schema.Types.Boolean,
         default: false,
@@ -52,6 +44,4 @@ const UserSchema = new Schema({
     }
 });
 
-const UserModel = mongoose.model('UserModel', UserSchema);
-
-module.exports = UserModel;
+module.exports = mongoose.model('UserModel', UserSchema);

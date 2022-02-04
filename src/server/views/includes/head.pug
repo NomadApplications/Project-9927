@@ -1,15 +1,3 @@
-mixin navbar-include(user)
-    link(rel="stylesheet", href="/public/stylesheets/navbar.css")
-    div(class="nav")
-        ul
-            a(href="/")
-                li Home
-
-            if user === null
-                a(href="/login")
-                    li(style="float: right;") Login
-            else
-                a(href="/api/logout")
-                    li(style="float: right;") Logout
-                a(href="/profile")
-                    li(style="float: right;") Profile
+mixin head()
+    link(rel='stylesheet', href='/public/stylesheets/style.css')
+    link(rel="shortcut icon", href="/public/favicon.ico", type="image/x-icon")

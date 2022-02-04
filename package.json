@@ -26,6 +26,7 @@
     "discord.js": "^13.6.0",
     "express": "^4.17.2",
     "http-errors": "^2.0.0",
+    "localtunnel": "^2.0.2",
     "mongoose": "^6.1.7",
     "morgan": "^1.10.0",
     "nm-discord-intents": "^1.0.3",

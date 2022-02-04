@@ -1,0 +1,34 @@
+doctype html
+head
+    include ../includes/head
+    +head
+    title="New Project"
+body
+    include ../includes/navbar
+    +navbar-include(user)
+
+    if(user === undefined)
+        h1 You are not logged in! Please login to make a project!
+    else
+        h1 Click below to create a project
+        form(action="javascript:createProject()")
+            label(for="project_name") Project name:
+            input(type="input" id="project_name" placeholder="Project name..")
+            label(for="teams") Team:
+            select(id="team")
+                option(value="") No team
+                each val in teams
+                    option(value=`${val._id}`)=val.name
+            input(type="submit" value="Create Project")
+script.
+    async function createProject(){
+        const team = document.getElementById('team').value;
+        const name = document.getElementById('project_name').value;
+        const f = await fetch('/api/newproject', {method: "GET", headers: {team,name}});
+
+        const j = await f.json();
+        console.log(j.id !== undefined);
+        if(f.id !== undefined) {
+            location.replace('/project/' + f.id);
+        }
+    }

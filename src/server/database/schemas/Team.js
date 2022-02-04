@@ -1,16 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const ToDo = require('./ToDo');
-
 const TeamSchema = new Schema({
+    owner: {type: Schema.Types.ObjectId },
     name: {
         type: Schema.Types.String,
         required: true,
-    },
-    to_do: {
-        type: Schema.Types.Map,
-        required: false,
     },
     members: {
         type: Schema.Types.Array,
@@ -22,15 +17,12 @@ const TeamSchema = new Schema({
         default: 'green'
     },
     projects: {
-        type: Schema.Types.Array,
-        required: false,
+        type: Schema.Types.Array
     },
-    uuid: {
-        type: Schema.Types.ObjectId,
-        required: false
+    team_code: {
+        type: Schema.Types.String,
+        required: true,
     }
 });
 
-const TeamModel = mongoose.model('TeamModel', TeamSchema);
-
-module.exports = TeamModel;
+module.exports = mongoose.model('TeamModel', TeamSchema);;

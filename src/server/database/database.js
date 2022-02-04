@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./schemas/User');
+const Team = require('./schemas/Team');
 
 const username = 'project9927';
 const password = process.env.ADMIN_AUTH;
@@ -43,16 +44,27 @@ function saveModel(model) {
 }
 
 /**
- * Check if a user exists by username
- * @param {string} username Username to check
- * @returns {boolean} Exists
+ * Get a team code
+ * @returns {string} Team code
  */
-async function userExists(username) {
-    return await User.findOne({username}).exec() !== null;
+async function getTeamCode() {
+    const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+    const generateResult = () => {
+        result = '';
+        for (let i = 0; i < 6; i++)
+            result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+    }
+    generateResult();
+    const teams = await Team.find();
+    while (teams.find(t => t.team_code == result) !== undefined) {
+        generateResult();
+    }
+    return result;
 }
 
 module.exports = {
     startDatabase,
     saveModel,
-    userExists
+    getTeamCode
 }

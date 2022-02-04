@@ -1,10 +1,12 @@
 doctype html
 head
+    include ../includes/head
+    +head
     title=user.display_name + "'s Settings"
-    link(rel='stylesheet', href='/public/stylesheets/style.css')
     link(rel="stylesheet", href="/public/stylesheets/user/settings.css")
+    script(src="/public/js/account_deletion.js")
 body
-    include ../includes/head.pug
+    include ../includes/navbar
     +navbar-include(user)
     div(class="container")
         h1 Profile
@@ -36,9 +38,32 @@ body
             label(for="confirm_password") Confirm Password:
             input(id="confirm_password" type="password" placeholder="Confirm password..")
             input(type="submit" value="Update Password")
+    div(class="container")
+        h1 Delete Account
+        p(style="color: indianred;") This is PERMANENT! Once done there is NO going back!
+        button(onclick="openNav()" style="color: indianred;") Delete Account
+        div(class="overlay" id="deleteOverlay")
+            a(href="javascript:void(0)" class="closebtn" onclick="closeNav()") &times;
+            div(class="overlay-content")
+                div(class="overlay-container")
+                    h1 Confirm deletion?
+                    form(action=`javascript:deleteAccount('${user.verification_code}')`)
+                        p(id="delete_error" style="display: none; color: indianred;")
+                        label(for="d_pass") Password:
+                        input(type="password" id="d_pass")
+                        label(for="d_confirm_pass") Confirm password:
+                        input(type="password" id="d_confirm_pass")
+                        input(type="submit" value="CONFIRM DELETE")
 script.
     document.getElementById('email_list').checked = #{user.email_list};
-    document.getElementById('public_visible').checked = #{user.visible};
+
+    function openNav(){
+        document.getElementById('deleteOverlay').style.width = "100%";
+    }
+
+    function closeNav(){
+        document.getElementById('deleteOverlay').style.width = "0%";
+    }
 
     async function updatePassword(){
         const currentPassword = document.getElementById('current_password').value || "";

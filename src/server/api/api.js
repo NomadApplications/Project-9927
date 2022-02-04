@@ -1,19 +1,22 @@
 const express = require('express');
-const fetch = require('node-fetch');
+const router = express.Router();
 
 const mailer = require('../../mailer/mailer');
-
 const passwordEncryptor = require('../../utils/password');
 
 const User = require('../database/schemas/User');
 const Team = require('../database/schemas/Team');
+const Project = require('../database/schemas/Project');
 const database = require('../database/database');
-
-const router = express.Router();
+const ObjectId = require('mongoose').Types.ObjectId;
 
 router.get('/', (req, res) => {
     res.render('api')
 })
+
+// ===============================================
+//                  ACCOUNTS
+// ===============================================
 
 router.get('/login', async (req, res) => {
     const user = await User.findOne({username: req.headers.username}).exec();
@@ -25,7 +28,6 @@ router.get('/login', async (req, res) => {
     }
     res.send(valid);
 })
-
 router.get('/logout', async (req, res) => {
     try {
         req.session = null;
@@ -35,7 +37,6 @@ router.get('/logout', async (req, res) => {
         res.redirect('/');
     }
 })
-
 router.get('/signup', async (req, res) => {
     const userCheck = await User.findOne({username: req.headers.username}).exec();
     if (userCheck !== null) {
@@ -82,6 +83,23 @@ router.get('/signup', async (req, res) => {
     res.send({});
 })
 
+router.get('/user/delete_acc', async (req, res) => {
+    if(!req.session.userId) {
+        res.send({error: "You aren't currently signed in. Please sign in and try again."});
+        return;
+    }
+    const user = await User.findOne({_id: req.session.userId}).exec();
+    if(user === null){
+        res.send({error: "There was an error."});
+        return;
+    }
+    if(req.headers.verification_code !== user.verification_code){
+        res.send({error: "There was an error."});
+        return;
+    }
+    await User.deleteOne({verification_code: req.headers.verification_code});
+    res.send(true);
+});
 router.get('/verify/:verification_code', async (req, res) => {
     const vTest = await User.findOne({verification_code: req.params.verification_code}).exec();
     if(vTest === null) return res.redirect('/404');
@@ -95,24 +113,9 @@ router.get('/verify/:verification_code', async (req, res) => {
     res.redirect('/')
 })
 
-router.get('/newteam', async (req, res) => {
-    if(!req.session.userId) return res.send(false);
-    const user = await User.findOne({_id:req.session.userId}).exec();
-    if(user === null) return res.send(false);
-
-    const newTeam = new Team({
-        name: req.headers.name || user.display_name + "'s team",
-        members: [user._id],
-    });
-    database.saveModel(newTeam);
-
-    const teams = user.teams;
-    teams.push(newTeam._id);
-
-    await User.updateOne({_id: req.session.userId}, {teams: teams})
-
-    res.send(true);
-})
+// ===============================================
+//                  PASSWORDS
+// ===============================================
 
 router.get('/user/checkpassword', async (req, res) => {
     if(!req.session.userId) return res.send(false);
@@ -120,7 +123,6 @@ router.get('/user/checkpassword', async (req, res) => {
     if(user === null) return res.send(false);
     return res.send(await passwordEncryptor.isPassword(user.password, req.headers.password));
 })
-
 router.get('/user/changepassword', async(req, res) => {
     if(!req.session.userId) return res.send(false);
     const user = await User.findOne({_id: req.session.userId}).exec();
@@ -129,5 +131,71 @@ router.get('/user/changepassword', async(req, res) => {
 
     await User.updateOne({_id: user._id}, {password: hashed});
 })
+
+
+// ===============================================
+//             PROJECTS AND TEAMS
+// ===============================================
+
+router.get('/newteam', async (req, res) => {
+    if(!req.session.userId) return res.send(false);
+    const user = await User.findOne({_id:req.session.userId}).exec();
+    if(user === null) return res.send(false);
+
+    const code = await database.getTeamCode();
+    const newTeam = new Team({
+        owner: user._id,
+        name: req.headers.name || user.display_name + "'s team",
+        members: [user._id],
+        team_code: code
+    });
+    database.saveModel(newTeam);
+
+    res.send(true);
+});
+router.get('/jointeam', async(req, res) => {
+    if(!req.session.userId) return res.send(false);
+    const user = await User.findOne({_id:req.session.userId}).exec();
+    if(user === null) return res.send(false);
+
+    const team = await Team.findOne({team_code: req.headers.team_code}).exec();
+    console.log(team);
+    if(team === null) return res.send(false);
+
+    if(team.members.includes(user._id)) return res.send(false);
+
+    const newMembers = team.members;
+    newMembers.push(user._id);
+    await Team.updateOne({team_code: req.headers.team_code}, {members: newMembers});
+    res.send(true);
+})
+router.get('/newproject', async(req, res) => {
+    if(!req.session.userId) return res.send({error:'You are not logged in!'});
+    const user = await User.findOne({_id:req.session.userId}).exec();
+    if(user === null) return res.send({error:'You are not logged in!'});
+
+    if(user.projects.length >= 3) return res.send({error:'You already have 3 projects!'});
+
+    const doc = {
+        name: req.headers.name || 'Project' + Math.floor(Math.random() * 100),
+        owner: user._id,
+    };
+    if(req.headers.team !== '' && ObjectId.isValid(req.headers.team))
+        doc['team_id'] = req.headers.team;
+
+    const newProject = new Project(doc);
+
+    const projects = user.projects;
+    projects.push(newProject);
+    await User.updateOne({_id:req.session.userId}, {projects: projects});
+
+    if(req.headers.team !== '' && ObjectId.isValid(req.headers.team)){
+        const team = await Team.findOne({_id:req.headers.team}).exec();
+        const teamProjects = team.projects;
+        teamProjects.push(newProject);
+        await Team.updateOne({_id:req.headers.team}, {projects: teamProjects});
+    }
+    res.send({id: newProject._id});
+});
 
 module.exports = router;

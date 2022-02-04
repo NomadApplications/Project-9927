@@ -1,22 +1,54 @@
 doctype html
 head
+    include ../includes/head
+    +head
     title=title
-    link(rel='stylesheet', href='/public/stylesheets/style.css')
 body
-    include ../includes/head.pug
+    include ../includes/navbar
     +navbar-include(user)
     h1
         a(href="/profile/settings") Settings
     div(class="teams")
         h1 Teams
-        button(onclick="newTeam()") New team
+        form(action="javascript:joinTeam()")
+            label(for="team_code") Team Code:
+            input(type="text" id="team_code")
+            input(type="submit" value="Join Team")
+        form(action="javascript:newTeam()")
+            label(for="team_name") Team Name:
+            input(type="text" id="team_name")
+            input(type="submit" value="Create New Team")
         ul
             each val in teams
-                li= val.name
+                li
+                    a(href=`/team/${val._id}`)= `${val.name} ${val.owner.toString() === user._id.toString() ? "(Owner)" : ""}`
+    div(class="projects")
+        h1 User Projects
+        a(href="/newproject") Create New Project
+        ul
+            each val in projects
+                li
+                    a(href=`/project/${val._id}`)= `${val.name} ${val.owner.toString() === user._id.toString() ? "(Owner)" : ""}`
+
 script.
-    function newTeam(){
-        fetch('/api/newteam', {
+    async function newTeam(){
+        const name = document.getElementById('team_name').value;
+        await fetch('/api/newteam', {
             method: "GET",
-            headers: {}
+            headers: {
+                name: name === '' ? undefined : name
+            }
         })
+        location.reload();
+    }
+
+    async function joinTeam(){
+        const code = document.getElementById('team_code').value;
+
+        await fetch('/api/jointeam', {
+            method: "GET",
+            headers: {
+                team_code: code
+            }
+        });
     }

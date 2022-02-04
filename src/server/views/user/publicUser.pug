@@ -1,17 +1,14 @@
 doctype html
 head
+    include ../includes/head
+    +head
     title= `Public user ${user.display_name}`
-    link(rel="stylesheet", href="/public/stylesheets/style.css")
     link(rel="stylesheet", href="/public/stylesheets/user/settings.css")
 body
-    include ../includes/head.pug
+    include ../includes/navbar
     +navbar-include(user)
 
     div(class="container")
         h2= `Display Name: ${user.display_name}`
     div(class="container")
         h2= `Projects: ${user.projects.length === 0 ? "No Projects" : user.projects}`
-    div(class="container")
-        h2= `To Dos: ${user.to_do.length === 0 ? "No To Do Lists" : user.to_do}`
-    div(class="container")
-        h2= `Teams: ${user.teams.length === 0 ? "No Teams" : user.teams}`

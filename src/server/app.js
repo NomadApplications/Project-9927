@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const localtunnel = require('localtunnel');
 const cookieSession = require('cookie-session');
 
 const defaultPort = 3000;
@@ -46,100 +47,11 @@ async function startServer(port = 3000) {
     app.get('/', async (req, res) => {
         const user = await User.findOne({_id: req.session.userId}).exec();
         res.render('layout', {
-            title: 'Project 9927',
             user
         });
     })
 
-    app.get('/login', async (req, res) => {
-        const user = await User.findOne({_id: req.session.userId}).exec();
-        res.render('login', {
-            user
-        })
-    });
-    app.get('/signup', (req, res) => res.render('signup'));
-    app.get('/profile', async (req, res) => {
-        if(!req.session.userId) {
-            res.redirect('/login');
-            return;
-        }
-        const user = await User.findOne({_id: req.session.userId}).exec();
-        if(user === null){
-            res.redirect('/login');
-            return;
-        }
-        const teams = [];
-        for(let i = 0; i < user.teams.length; i++){
-            const team = await Team.findOne({_id: user.teams[i]}).exec();
-            if(team !== null)
-                teams.push(team)
-        }
-
-        res.render('user/profile', {
-            title: user.display_name + "'s profile | Project 9927",
-            user,
-            teams
-        });
-    })
-    app.get('/profile/settings', async(req, res) => {
-        if(!req.session.userId) {
-            res.redirect('/login');
-            return;
-        }
-        const user = await User.findOne({_id: req.session.userId}).exec();
-        if(user === null){
-            res.redirect('/login');
-            return;
-        }
-        const teams = [];
-        for(let i = 0; i < user.teams.length; i++){
-            const team = await Team.findOne({_id: user.teams[i]}).exec();
-            if(team !== null)
-                teams.push(team)
-        }
-
-        const isPassword = async (password) => {
-            console.log(password);
-            console.log(user.password);
-            return await passwordEncryptor.isPassword(user.password, password);
-        }
-
-        const changePassword = async (password) => {
-            const hashed = await passwordEncryptor.hashPassword(password)
-            User.updateOne({_id: user._id}, {password: hashed});
-            req.session = null;
-        }
-
-        res.render('user/settings', {
-            title: user.display_name + "'s profile | Project 9927",
-            user,
-            teams,
-            isPassword,
-            changePassword
-        });
-    });
-
-    app.get('/user/:userId', async(req, res) => {
-        if(!ObjectId.isValid(req.params.userId)){
-            res.render('404');
-            return;
-        }
-        const user = await User.findOne({_id: req.params.userId}).exec();
-        if(user === null){
-            res.render('404');
-            return;
-        }
-        if(!user.visible){
-            res.render('404');
-            return;
-        }
-        res.render('user/publicUser', {
-            user
-        })
-    })
-
-    app.get("/404", (req, res) => res.render('404'));
-
+    app.use('/', require('./api/front'));
     app.use('/api', require('./api/api'));
 
     return new Promise((resolve, reject) => {

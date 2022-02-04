@@ -1,10 +1,11 @@
 doctype html
 html
     head
-        title=title
-        link(rel='stylesheet', href='/public/stylesheets/style.css')
+        include includes/head
+        +head
+        title Project 9927 | Home Page
     body
-        include includes/head.pug
+        include includes/navbar
         +navbar-include(user)
         block content
             if user === null

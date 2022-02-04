@@ -1,0 +1,14 @@
+doctype html
+head
+    include ../../includes/head
+    +head
+    title= team.name
+body
+    include ../../includes/navbar
+    +navbar-include(user)
+    h1=`${team.name} - Team code: ${team.team_code}`
+    div(class="projects")
+        h1 Projects
+        ul
+            each val in team.projects
+                a(href=`/project/${val._id}`)=val.name

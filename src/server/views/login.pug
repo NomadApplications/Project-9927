@@ -1,10 +1,11 @@
 doctype html
 head
+    include includes/head
+    +head
     title='Login Page'
-    link(rel='stylesheet', href='/public/stylesheets/style.css')
     link(rel='stylesheet', href='/public/stylesheets/login.css')
 body
-    include includes/head.pug
+    include includes/navbar
     +navbar-include(user)
     div(class="container")
         h1='Login below!'
