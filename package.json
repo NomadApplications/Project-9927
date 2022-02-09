@@ -4,7 +4,6 @@
   "description": "- AI Project Idea Generator\r - Project Manager\r - Reminders\r - Tasks/To Do Lists\r - Teams - invite other people\r -",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/main.js"
   },
   "repository": {
@@ -12,9 +11,6 @@
     "url": "git+https://github.com/NomadApplications/Project-9927.git"
   },
   "author": "Joe Balanoff & NCJ",
-  "engines": {
-    "node": "12.18.4"
-  },
   "private": true,
   "license": "ISC",
   "bugs": {
