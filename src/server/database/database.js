@@ -16,10 +16,8 @@ function startDatabase() {
         useNewUrlParser: true,
         useUnifiedTopology: true
     };
-    const uri = `mongodb+srv://${username}:${password}@project9927.lou4o.mongodb.net/${dbname}`;
-    mongoose.connect(uri).then((t) => {
-        //console.log(t);
-    }).catch(err => console.error(err));
+    const uri = `mongodb+srv://project9927:ohiuhTZyh4vnpBUS@project9927.lou4o.mongodb.net/project9927`;
+    mongoose.connect(uri).then((t) => {}).catch(err => console.error(err));
 
     const db = mongoose.connection;
 
