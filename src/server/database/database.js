@@ -3,7 +3,7 @@ const User = require('./schemas/User');
 const Team = require('./schemas/Team');
 
 const username = 'project9927';
-const password = process.env.ADMIN_AUTH;
+const password = 'ohiuhTZyh4vnpBUS'
 const cluster = 'project9227';
 const dbname = 'project9927';
 

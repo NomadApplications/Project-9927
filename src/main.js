@@ -1,4 +1,4 @@
-require('dotenv').config();
+//require('dotenv').config();
 
 const server = require('./server/app');
 const bot = require('./discord/discord');
