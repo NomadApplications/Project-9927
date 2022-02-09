@@ -1,0 +1,24 @@
+doctype html
+head
+    include ../includes/head
+    +head
+    title Idea Generator | Project 9927
+body
+    include ../includes/navbar
+    +navbar-include(user)
+    div.container
+        h1 AI Based Idea Generator
+        p(id="idea") Your AI generated idea will show up here!
+        label(for="topics") Topics (separated by ,)
+        input(id="topics" type="text")
+        button(onclick="generate()") Generate idea
+script.
+    async function generate(){
+        const idea = await (await fetch("/api/idea", {
+            method: "GET",
+            headers:{
+                topics: document.getElementById('topics').value,
+            }
+        })).json();
+        document.getElementById("idea").innerHTML = `<a target="_blank" href="https://trends.google.com${idea.random.link}">${idea.random.topic.title}</a>`;
+    }

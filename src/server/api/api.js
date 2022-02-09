@@ -198,4 +198,28 @@ router.get('/newproject', async(req, res) => {
     res.send({id: newProject._id});
 });
 
+const googleTrends = require('google-trends-api');
+
+router.get('/idea', async(req, res) => {
+    // CREATE IDEA HERE --- PLEASE FIX THIS I DONT FEEL LIKE WORRYING ABOUT IT RN
+    const topics = req.headers.topics.split(',');
+    if(topics.length === 0) return res.send({error:"No topics specified!"});
+
+    googleTrends.relatedTopics({keyword: topics[0]})
+        .then((r) => {
+            const json = JSON.parse(r);
+            const rankedList = json.default.rankedList;
+            const result = rankedList[0].rankedKeyword;
+            const ret = {
+                amount: result.length,
+                random: result[Math.floor(Math.random() * result.length-1)],
+                results: result,
+            };
+            return res.send(ret);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+
 module.exports = router;

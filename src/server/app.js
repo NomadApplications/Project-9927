@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const localtunnel = require('localtunnel');
+const helmet = require('helmet');
 const cookieSession = require('cookie-session');
 
 const defaultPort = 3000;
@@ -25,6 +25,8 @@ async function startServer(port = 3000) {
     app.use(express.urlencoded({extended: true}));
     app.use(express.json());
     app.use(bodyParser.json());
+
+    app.use(helmet());
 
     app.use('/public', express.static(path.join(__dirname + '/public')));
 

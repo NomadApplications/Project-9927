@@ -23,7 +23,9 @@ body
                 li
                     a(href=`/team/${val._id}`)= `${val.name} ${val.owner.toString() === user._id.toString() ? "(Owner)" : ""}`
     div(class="projects")
-        h1 User Projects
+        h1 User Projects (
+            a(href="/ideas") Ideas
+            | )
         a(href="/newproject") Create New Project
         ul
             each val in projects
