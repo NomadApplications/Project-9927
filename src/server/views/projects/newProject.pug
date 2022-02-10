@@ -21,14 +21,14 @@ body
                     option(value=`${val._id}`)=val.name
             input(type="submit" value="Create Project")
 script.
-    async function createProject(){
+    async function createProject() {
         const team = document.getElementById('team').value;
         const name = document.getElementById('project_name').value;
-        const f = await fetch('/api/newproject', {method: "GET", headers: {team,name}});
+        const f = await fetch('/api/newproject', {method: "GET", headers: {team, name}});
 
         const j = await f.json();
         console.log(j.id !== undefined);
-        if(f.id !== undefined) {
+        if (f.id !== undefined) {
             location.replace('/project/' + f.id);
         }
     }

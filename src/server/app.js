@@ -26,7 +26,7 @@ async function startServer(port = 3000) {
     app.use(express.json());
     app.use(bodyParser.json());
 
-    app.use(helmet());
+    //app.use(helmet());
 
     app.use('/public', express.static(path.join(__dirname + '/public')));
 
