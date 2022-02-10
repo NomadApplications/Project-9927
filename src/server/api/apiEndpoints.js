@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/api/"
+const url = "https://project-9927.herokuapp.com//api/"
 
 module.exports = {
     userValid: url + "valid_user"

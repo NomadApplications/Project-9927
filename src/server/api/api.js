@@ -77,7 +77,7 @@ router.get('/signup', async (req, res) => {
         text: `\n
         If your account name is not ${newUser.username} please delete this email.\n
         Please visit the link below to verify your account!\n
-        http://localhost:3000/api/verify/${vCode}`,
+        https://project-9927.herokuapp.com/api/verify/${vCode}`,
     });
 
     res.send({});

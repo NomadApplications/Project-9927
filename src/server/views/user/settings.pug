@@ -12,8 +12,8 @@ body
         h1 Profile
         form(action="javascript:updateAccount()")
             label(for="profile_page") Profile Page
-            a(id="profile_page" href="http://localhost:3000/user/" + user._id + "/" )
-                | http://localhost:3000/user/
+            a(id="profile_page" href="/user/" + user._id + "/" )
+                | https://project-9927.herokuapp.com/user/
                 span= user._id
                 | /
             label(for="display_name") Display Name
