@@ -1,5 +1,8 @@
 doctype html
 head
+    script(src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js")
+    script(src="/public/js/calendar.js")
+    link(rel="stylesheet", href="/public/stylesheets/calendar.css")
     include ../includes/head
     +head
     title= project.name + " | Project 9927 Project"
@@ -13,9 +16,14 @@ body
                 a(href=`/team/${teamProject._id}`)=teamProject.name
                 |)
     div(class="members")
+        h1 Members
         ul(id="membersList")
             each val in members
                 li=val.username
 
     div(class="todo")
+        h1 ToDo List
+
     div(class="calendar")
+        h1 Calendar
+        div(id="calendar")
