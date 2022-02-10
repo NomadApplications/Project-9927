@@ -91,6 +91,15 @@ router.get('/project/:projectId', async(req, res) => {
 
     let project = user.projects.find(x => x._id == req.params.projectId);
     const teamProject = project.team_id === undefined ? undefined : await Team.findOne({_id:project.team_id}).exec();
+    const members = [];
+    if(teamProject !== undefined){
+        for(let i = 0; i < teamProject.members.length; i++){
+            const m = await User.findOne({_id:teamProject.members[i]}).exec();
+            members.push(m);
+        }
+    } else {
+        members.push(user);
+    }
 
     if(project === undefined) return res.redirect('/profile')
 
@@ -98,6 +107,7 @@ router.get('/project/:projectId', async(req, res) => {
         user,
         teams,
         teamProject,
+        members,
         project: project || {}
     });
 });

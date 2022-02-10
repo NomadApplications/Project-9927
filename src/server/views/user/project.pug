@@ -8,4 +8,14 @@ body
     +navbar-include(user)
     h1=project.name
         if teamProject !== undefined
-            a(href=`/team/${teamProject._id}`)=` (${teamProject.name})`
+            span
+                | (
+                a(href=`/team/${teamProject._id}`)=teamProject.name
+                |)
+    div(class="members")
+        ul(id="membersList")
+            each val in members
+                li=val.username
+
+    div(class="todo")
+    div(class="calendar")
