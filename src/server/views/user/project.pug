@@ -8,4 +8,4 @@ body
     +navbar-include(user)
     h1=project.name
         if project.team_id !== undefined
-            span=`(${teamProject.name})`
+            a(href=`/team/${teamProject._id}`)=`(${teamProject.name})`
