@@ -23,7 +23,7 @@ body
 
 script.
     async function login(){
-        const info = await fetch('http://localhost:3000/api/login', {
+        const info = await fetch('/api/login', {
             method: 'GET',
             headers: {
                 username: document.getElementById('username').value,
