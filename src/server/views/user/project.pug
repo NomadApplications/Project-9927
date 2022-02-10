@@ -7,5 +7,5 @@ body
     include ../includes/navbar
     +navbar-include(user)
     h1=project.name
-        if project.team_id !== undefined
-            a(href=`/team/${teamProject._id}`)=`(${teamProject.name})`
+        if teamProject !== undefined
+            a(href=`/team/${teamProject._id}`)=` (${teamProject.name})`

@@ -6,7 +6,8 @@ head
 body
     include ../../includes/navbar
     +navbar-include(user)
-    h1=`${team.name} - Team code: ${team.team_code}`
+    h1=`${team.name} - Team code: `
+        code=team.team_code
     div(class="projects")
         h1 Projects
         ul
