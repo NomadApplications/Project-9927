@@ -27,8 +27,7 @@ script.
         const f = await fetch('/api/newproject', {method: "GET", headers: {team, name}});
 
         const j = await f.json();
-        console.log(j.id !== undefined);
-        if (f.id !== undefined) {
-            location.replace('/project/' + f.id);
+        if (j.id !== undefined) {
+            location.replace('/project/' + j.id);
         }
     }
