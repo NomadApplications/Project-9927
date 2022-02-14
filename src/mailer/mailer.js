@@ -18,11 +18,8 @@ function sendMail(_mail){
 
     if(mail.to === null) return;
     transporter.sendMail(mail, function(err, info){
-        if(err){
+        if(err)
             console.error(err);
-        } else {
-            console.log("EMAIL SENT: " + info.response);
-        }
     });
 }
 

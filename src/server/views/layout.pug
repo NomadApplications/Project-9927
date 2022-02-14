@@ -14,6 +14,6 @@ html
             else
                 h1
                     | Logged in! (
-                    a(href="/profile" style="color: ")= `${user.display_name} ${user.verified ? "✔" : ""}`
-                    | )
+                    a(href="/profile")=`${user.display_name}${user.verified ? " ✔" : ""}`
+                    |)
                 a(href='/api/logout') Logout here!

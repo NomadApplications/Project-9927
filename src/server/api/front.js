@@ -90,6 +90,7 @@ router.get('/project/:projectId', async(req, res) => {
     const teams = (await Team.find()).filter(i => i.members.includes(user._id));
 
     let project = user.projects.find(x => x._id == req.params.projectId);
+    if(project === undefined) return res.redirect('/profile')
     const teamProject = project.team_id === undefined ? undefined : await Team.findOne({_id:project.team_id}).exec();
     const members = [];
     if(teamProject !== undefined){
@@ -101,9 +102,35 @@ router.get('/project/:projectId', async(req, res) => {
         members.push(user);
     }
 
-    if(project === undefined) return res.redirect('/profile')
-
     res.render('user/project',{
+        user,
+        teams,
+        teamProject,
+        members,
+        project: project || {}
+    });
+});
+router.get('/project/:projectId/todo', async(req, res) => {
+    if(req.session.userId === undefined) return res.redirect('/');
+    const user = await User.findOne({_id: req.session.userId}).exec();
+    if(user === null) return res.redirect('/');
+
+    const teams = (await Team.find()).filter(i => i.members.includes(user._id));
+
+    let project = user.projects.find(x => x._id == req.params.projectId);
+    if(project === undefined) return res.redirect('/profile')
+    const teamProject = project.team_id === undefined ? undefined : await Team.findOne({_id:project.team_id}).exec();
+    const members = [];
+    if(teamProject !== undefined){
+        for(let i = 0; i < teamProject.members.length; i++){
+            const m = await User.findOne({_id:teamProject.members[i]}).exec();
+            members.push(m);
+        }
+    } else {
+        members.push(user);
+    }
+
+    res.render('user/todo',{
         user,
         teams,
         teamProject,

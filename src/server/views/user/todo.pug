@@ -1,0 +1,16 @@
+doctype html
+head
+    include ../includes/head
+    +head
+    title Kanban Board
+    link(rel="stylesheet", href="/public/stylesheets/todo.css")
+body
+    include ../includes/navbar
+    +navbar-include(undefined)
+    .kanban
+script(src="/public/js/todo/kanban.js")
+script(src="/public/js/todo/dropzone.js")
+script(src="/public/js/todo/item.js")
+script(src="/public/js/todo/column.js")
+script(src="/public/js/todo/api/kanbanapi.js")
+script(src="/public/js/todo/main.js")
