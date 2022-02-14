@@ -29,7 +29,7 @@
 .kanban__item-input {
     padding: 10px 15px;
     box-sizing: border-box;
-    background: black;
+    background: white;
     border-radius: 5px;
     cursor: pointer;
 }
