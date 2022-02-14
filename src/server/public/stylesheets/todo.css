@@ -1,7 +1,6 @@
 .kanban {
     display: flex;
     padding: 20px;
-    width: 750px;
     background: #f5f5f5;
     box-shadow: 1px 1px 2px #999999;
     border-radius: 5px;
@@ -13,6 +12,10 @@
 
 .kanban__column {
     flex: 1;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #999999;
 }
 
 .kanban__column:not(:last-child) {
