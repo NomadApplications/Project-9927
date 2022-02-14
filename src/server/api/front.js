@@ -31,8 +31,12 @@ router.get('/profile', async (req, res) => {
     if(user === null) return res.redirect('/login');
 
     const teams = (await Team.find()).filter(i => i.members.includes(user._id));
-    const projects = user.projects.filter((p) => p.team_id === undefined);
-
+    const projectIds = user.projects.filter((p) => p.team_id === undefined);
+    const projects = [];
+    for(let i = 0; i < projectIds.length; i++) {
+        const p = await Project.findOne({_id: projectIds}).exec();
+        projects.push(p);
+    }
     res.render('user/profile', {
         title: user.display_name + "'s profile | Project 9927",
         user,

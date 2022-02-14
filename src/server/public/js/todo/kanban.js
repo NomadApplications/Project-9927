@@ -1,7 +1,6 @@
 class Kanban {
     constructor(root) {
         this.root = root;
-        console.log(this.root);
 
         Kanban.columns().forEach(column => {
             const columnView = new Column(column.id, column.title);

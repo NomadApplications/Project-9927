@@ -183,15 +183,16 @@ router.get('/newproject', async(req, res) => {
         doc['team_id'] = req.headers.team;
 
     const newProject = new Project(doc);
+    database.saveModel(newProject);
 
     const projects = user.projects;
-    projects.push(newProject);
+    projects.push(newProject._id);
     await User.updateOne({_id:req.session.userId}, {projects: projects});
 
     if(req.headers.team !== '' && ObjectId.isValid(req.headers.team)){
         const team = await Team.findOne({_id:req.headers.team}).exec();
         const teamProjects = team.projects;
-        teamProjects.push(newProject);
+        teamProjects.push(newProject._id);
         await Team.updateOne({_id:req.headers.team}, {projects: teamProjects});
     }
     res.send({id: newProject._id});
@@ -202,10 +203,11 @@ router.get('/todo_data', async (req, res) => {
     const user = await User.findOne({_id:req.session.userId}).exec();
     if(user === null) return res.send({error:'You are not logged in!'});
 
-    const project = user.projects.find(p => p._id == req.headers.projectid);
-    if(project === undefined) return res.send({error:"Project not found!"});
+    const project = await Project.findOne({_id: user.projects.find(p => p._id == req.headers.projectid)}).exec()
+
+    if(project === null) return res.send({error:"Project not found!"});
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
-    return res.send(JSON.parse(project.to_do).table);
+    return res.send(JSON.parse(project.to_do));
 });
 router.get('/set_todo', async(req,res) => {
     if(!req.headers.projectid) return res.send({error:"No ProjectID"});
@@ -213,11 +215,10 @@ router.get('/set_todo', async(req,res) => {
     const user = await User.findOne({_id:req.session.userId}).exec();
     if(user === null) return res.send({error:'You are not logged in!'});
 
-    const project = user.projects.find(p => p._id == req.headers.projectid);
-    if(project === undefined) return res.send({error:"Project not found!"});
+    const project = await Project.findOne({_id: user.projects.find(p => p._id == req.headers.projectid)}).exec()
+    if(project === null) return res.send({error:"Project not found!"});
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
-
-    await Project.updateOne({_id: project._id}, {to_do: JSON.stringify(req.headers.data)})
+    await Project.updateOne({_id: project._id}, {to_do: req.headers.data})
     res.send(true);
 });
 

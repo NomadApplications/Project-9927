@@ -16,7 +16,6 @@ class KanbanAPI {
         if(!column){
             throw new Error("Column does not exist.");
         }
-
         column.items.push(item);
         await save(data);
 
@@ -25,15 +24,19 @@ class KanbanAPI {
 
     static async updateItem(itemId, newProps){
         const data = await read();
-        const [item, currentColumn] = (() => {
-            for(const column of data) {
-                const item = column.items.find(item => item.id == itemId);
+        let item = null;
+        let column = null;
 
-                if(item) {
-                    return [item, column];
-                }
+        for(let i = 0; i < data.length; i++) {
+            const _column = data[i];
+            const _item = _column.items.find(_i => _i.id == itemId);
+
+            if (_item) {
+                item = _item;
+                column = _column;
+                break;
             }
-        })();
+        }
 
         if(!item) {
             throw new Error("Item not found.");
@@ -48,7 +51,7 @@ class KanbanAPI {
                 throw new Error("Target column not found.");
             }
 
-            currentColumn.items.splice(currentColumn.items.indexOf(item), 1);
+            column.items.splice(column.items.indexOf(item), 1);
             targetColumn.items.splice(newProps.position, 0, item);
         }
 
@@ -83,11 +86,12 @@ async function read() {
 
 async function save(data){
     const projectId = window.location.href.split('project/')[1].split('/')[0];
-    await fetch('/api/set_todo', {
+    const f = await fetch('/api/set_todo', {
         method: "GET",
         headers: {
             projectId: projectId,
-            data: data
+            data: JSON.stringify(data)
         }
     });
+    const j = await f.json();
 }
