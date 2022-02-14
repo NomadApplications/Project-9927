@@ -207,6 +207,19 @@ router.get('/todo_data', async (req, res) => {
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
     return res.send(JSON.parse(project.to_do).table);
 });
+router.get('/set_todo', async(req,res) => {
+    if(!req.headers.projectid) return res.send({error:"No ProjectID"});
+    if(!req.session.userId) return res.send({error:'You are not logged in!'});
+    const user = await User.findOne({_id:req.session.userId}).exec();
+    if(user === null) return res.send({error:'You are not logged in!'});
+
+    const project = user.projects.find(p => p._id == req.headers.projectid);
+    if(project === undefined) return res.send({error:"Project not found!"});
+    if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
+
+    await Project.updateOne({_id: project._id}, {to_do: JSON.stringify(req.headers.data)})
+    res.send(true);
+});
 
 const googleTrends = require('google-trends-api');
 

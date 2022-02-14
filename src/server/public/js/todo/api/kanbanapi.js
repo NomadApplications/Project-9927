@@ -78,10 +78,16 @@ async function read() {
         }
     });
     const j = await f.json();
-    console.log(j);
     return j;
 }
 
-async function save(){
-
+async function save(data){
+    const projectId = window.location.href.split('project/')[1].split('/')[0];
+    await fetch('/api/set_todo', {
+        method: "GET",
+        headers: {
+            projectId: projectId,
+            data: data
+        }
+    });
 }
