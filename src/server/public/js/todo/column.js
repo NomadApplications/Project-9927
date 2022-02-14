@@ -12,8 +12,8 @@ class Column {
         this.elements.title.textContent = title;
         this.elements.items.appendChild(topDropZone);
 
-        this.elements.addItem.addEventListener("click", () => {
-            const newItem = KanbanAPI.insertItem(id, "");
+        this.elements.addItem.addEventListener("click", async () => {
+            const newItem = await KanbanAPI.insertItem(id, "");
 
             this.renderItem(newItem);
         });

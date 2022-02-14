@@ -1,7 +1,6 @@
 class KanbanAPI {
     static async getItems(columnId){
         const data = await read();
-        console.log(data);
         if(data.error) return [];
         const column = data.find(column => column.id == columnId);
         if(!column) return [];
