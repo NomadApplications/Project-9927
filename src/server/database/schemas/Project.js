@@ -31,6 +31,10 @@ const ProjectSchema = new Schema({
                 },
                 ]
         })
+    },
+    public: {
+        type: Schema.Types.Boolean,
+        default: false,
     }
 });
 

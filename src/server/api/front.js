@@ -31,11 +31,10 @@ router.get('/profile', async (req, res) => {
     if(user === null) return res.redirect('/login');
 
     const teams = (await Team.find()).filter(i => i.members.includes(user._id));
-    const projectIds = user.projects.filter((p) => p.team_id === undefined);
     const projects = [];
-    for(let i = 0; i < projectIds.length; i++) {
-        const p = await Project.findOne({_id: projectIds[i]}).exec();
-        if(p !== null)
+    for(let i = 0; i < user.projects.length; i++) {
+        const p = await Project.findOne({_id: user.projects[i]}).exec();
+        if(p !== null && p.team_id === undefined)
             projects.push(p);
     }
     res.render('user/profile', {
@@ -75,6 +74,7 @@ router.get('/profile/settings', async(req, res) => {
 // ===============================================
 
 router.get('/team/:teamId', async(req, res) => {
+    if(!ObjectId.isValid(req.params.teamId)) return res.redirect('/profile');
     if(req.session.userId === undefined) return res.redirect('/')
     const user = await User.findOne({_id: req.session.userId}).exec();
     if(user === null) return res.redirect('/');
@@ -82,9 +82,17 @@ router.get('/team/:teamId', async(req, res) => {
     const team = await Team.findOne({_id: req.params.teamId}).exec();
     if(team === null) return res.redirect('/');
 
+    const projects = [];
+    for(let i = 0; i < team.projects.length; i++) {
+        const p = await Project.findOne({_id: team.projects[i]}).exec();
+        if (p !== null)
+            projects.push(p);
+    }
+
     res.render('user/team/team', {
-       user,
-       team,
+        user,
+        team,
+        projects
     });
 });
 router.get('/project/:projectId', async(req, res) => {
@@ -159,10 +167,6 @@ router.get('/newproject', async(req,res) => {
 // ===============================================
 
 router.get('/user/:username', async(req, res) => {
-    if(!ObjectId.isValid(req.params.username)){
-        res.render('404');
-        return;
-    }
     const user = await User.findOne({username: req.params.username}).exec();
     if(user === null){
         res.render('404');
@@ -172,7 +176,14 @@ router.get('/user/:username', async(req, res) => {
         res.render('404');
         return;
     }
+    const projects = [];
+    for(let i = 0; i < user.projects.length; i++){
+        const p = await Project.findOne({_id: user.projects[i]}).exec();
+        if(p !== null && p.team_id === undefined && p.public)
+            projects.push(p);
+    }
     res.render('user/publicUser', {
+        projects,
         user
     })
 })

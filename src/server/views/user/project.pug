@@ -15,15 +15,12 @@ body
                 | (
                 a(href=`/team/${teamProject._id}`)=teamProject.name
                 |)
+    a(href=`./${project._id}/todo`) Todo List
     div(class="members")
-        h1 Members
+        h2 Members
         ul(id="membersList")
             each val in members
-                li=val.username
-
-    div(class="todo")
-        h1
-            a(href=`./${project._id}/todo`) Todo List
-
+                li
+                    a(href=`/user/${val.username}`)=val.display_name
     div(class="calendar")
         

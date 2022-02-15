@@ -9,6 +9,7 @@ class KanbanAPI {
 
     static async insertItem(columnId, content){
         const data = await read();
+        console.log(data);
         const column = data.find(column => column.id == columnId);
         const item = {
             id: Math.floor(Math.random() * 100000),

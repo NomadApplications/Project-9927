@@ -11,5 +11,5 @@ body
     div(class="projects")
         h1 Projects
         ul
-            each val in team.projects
+            each val in projects
                 a(href=`/project/${val._id}`)=val.name
