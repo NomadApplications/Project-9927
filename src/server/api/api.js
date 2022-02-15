@@ -207,7 +207,7 @@ router.get('/todo_data', async (req, res) => {
 
     if(project === null) return res.send({error:"Project not found!"});
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
-    return res.send(JSON.parse(project.to_do));
+    return res.send(JSON.parse(project.to_do).table);
 });
 router.get('/set_todo', async(req,res) => {
     if(!req.headers.projectid) return res.send({error:"No ProjectID"});
@@ -218,7 +218,9 @@ router.get('/set_todo', async(req,res) => {
     const project = await Project.findOne({_id: user.projects.find(p => p._id == req.headers.projectid)}).exec()
     if(project === null) return res.send({error:"Project not found!"});
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
-    await Project.updateOne({_id: project._id}, {to_do: req.headers.data})
+
+    const json = {table: JSON.parse(req.headers.data)};
+    await Project.updateOne({_id: project._id}, {to_do: JSON.stringify(json)})
     res.send(true);
 });
 

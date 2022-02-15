@@ -34,8 +34,9 @@ router.get('/profile', async (req, res) => {
     const projectIds = user.projects.filter((p) => p.team_id === undefined);
     const projects = [];
     for(let i = 0; i < projectIds.length; i++) {
-        const p = await Project.findOne({_id: projectIds}).exec();
-        projects.push(p);
+        const p = await Project.findOne({_id: projectIds[i]}).exec();
+        if(p !== null)
+            projects.push(p);
     }
     res.render('user/profile', {
         title: user.display_name + "'s profile | Project 9927",
@@ -87,14 +88,16 @@ router.get('/team/:teamId', async(req, res) => {
     });
 });
 router.get('/project/:projectId', async(req, res) => {
+    if(!ObjectId.isValid(req.params.projectId)) return res.redirect('/profile');
     if(req.session.userId === undefined) return res.redirect('/');
     const user = await User.findOne({_id: req.session.userId}).exec();
     if(user === null) return res.redirect('/');
 
     const teams = (await Team.find()).filter(i => i.members.includes(user._id));
 
-    let project = user.projects.find(x => x._id == req.params.projectId);
-    if(project === undefined) return res.redirect('/profile')
+    const project = await Project.findOne({_id: req.params.projectId}).exec();
+    if(project === null) return res.redirect('/profile')
+
     const teamProject = project.team_id === undefined ? undefined : await Team.findOne({_id:project.team_id}).exec();
     const members = [];
     if(teamProject !== undefined){
@@ -115,14 +118,16 @@ router.get('/project/:projectId', async(req, res) => {
     });
 });
 router.get('/project/:projectId/todo', async(req, res) => {
+    if(!ObjectId.isValid(req.params.projectId)) return res.redirect('/profile');
     if(req.session.userId === undefined) return res.redirect('/');
     const user = await User.findOne({_id: req.session.userId}).exec();
     if(user === null) return res.redirect('/');
 
     const teams = (await Team.find()).filter(i => i.members.includes(user._id));
 
-    let project = user.projects.find(x => x._id == req.params.projectId);
-    if(project === undefined) return res.redirect('/profile')
+    const project = await Project.findOne({_id: req.params.projectId}).exec();
+    if(project === null) return res.redirect('/profile')
+
     const teamProject = project.team_id === undefined ? undefined : await Team.findOne({_id:project.team_id}).exec();
     const members = [];
     if(teamProject !== undefined){
