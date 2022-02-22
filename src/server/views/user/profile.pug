@@ -4,21 +4,31 @@ head
     +head
     title=title
     link(rel="stylesheet", href="public/stylesheets/user/profile.css")
-body(style="overflow: hidden;")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+body
     include ../includes/navbar
     +navbar-include(user)
     .panels
-        h1(id="title") YOUR PROFILE
+        h1(id="title")
+            a(href="/profile/settings")
+                span(class="fa fa-cog" id="settings")
+            |  DASHBOARD
         .panel(id="profile")
-            h1 Welcome Back!
-            p Project 9927 Dashboard
+            h1
+                span(class="fa fa-user")
+                | Welcome Back!
+            p You are currently signed in as
+                =' '
+                a(href=`/user/${user.username}`)= user.display_name
+            h2
+                span(class="fa fa-signal")
+                | Profile Stats
             p=`${user.projects.length} Projects`
             p=`${teams.length} Teams`
-            p You are currently signed in as
-                =` ${user.username}`
-            a(href="/profile/settings") Settings
         .panel(id="teams")
-            h1 Teams
+            h1
+                span(class="fa fa-users")
+                | Teams
             form(action="javascript:joinTeam()")
                 label(for="team_code") Join Team (by team code):
                 input(type="text" id="team_code" placeholder="ABC123" required)
@@ -32,7 +42,9 @@ body(style="overflow: hidden;")
                     li
                         a(href=`/team/${val._id}`)= `${val.name} ${val.owner.toString() === user._id.toString() ? "(Owner)" : ""}`
         .panel
-            h1 User Projects
+            h1
+                span(class="fa fa-list")
+                | User Projects
             a(href="/newproject") Create New Project
             ul
                 each val in projects
@@ -46,7 +58,8 @@ body(style="overflow: hidden;")
                     fill: #5f4def;
                 }
         path(class="cls-1", d="M0,283.054c22.75,12.98,53.1,15.2,70.635,14.808,92.115-2.077,238.3-79.9,354.895-79.938,59.97-.019,106.17,18.059,141.58,34,47.778,21.511,47.778,21.511,90,38.938,28.418,11.731,85.344,26.169,152.992,17.971,68.127-8.255,115.933-34.963,166.492-67.393,37.467-24.032,148.6-112.008,171.753-127.963,27.951-19.26,87.771-81.155,180.71-89.341,72.016-6.343,105.479,12.388,157.434,35.467,69.73,30.976,168.93,92.28,256.514,89.405,100.992-3.315,140.276-41.7,177-64.9V0.24H0V283.054Z")
-
+    include ../includes/footer
+    +footer()
 script.
     async function newTeam(){
         const name = document.getElementById('team_name').value;

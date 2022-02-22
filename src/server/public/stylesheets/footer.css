@@ -1,0 +1,27 @@
+.footer {
+    text-align: center;
+}
+
+.footer ul {
+    text-align: center;
+    list-style: none;
+}
+
+.footer li {
+    display: inline-block;
+    padding: 20px 40px;
+}
+
+.footer a {
+    text-decoration: none;
+    color: black;
+}
+
+.footer li span {
+    padding: 25px;
+}
+
+.footer li span:hover {
+    transform: scale(1.4);
+    cursor: pointer;
+}

@@ -1,0 +1,80 @@
+.new_project {
+    margin-top: 0px;
+    background: #5F4DEE;
+    color: #FFF;
+    padding: 40px;
+}
+
+.new_project label {
+    margin-top: 2rem;
+    padding: 0;
+    display: block;
+}
+
+.new_project form {
+    width: 85%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0);
+    background: #FFF;
+    color: #5F4DEE;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.new_project form h1 {
+    font-size: 30px;
+    text-align: center;
+}
+
+.video {
+    background: #5F4DEE;
+}
+
+#video-style {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0);
+    width: calc(1920px / 2);
+    height: calc(1080px / 2);
+    border-radius: 20px;
+    border: 2px solid white;
+}
+
+.title h1 {
+    padding: 50px;
+    font-size: 60px;
+    color: white;
+    background: #5F4DEE;
+    text-align: center;
+    margin: 0;
+}
+
+.new_project input, select {
+    padding: 10px;
+    width: 100%;
+}
+
+.new_project input[type='text'], select {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #5F4DEE;
+}
+
+.new_project input[type='submit'] {
+    border-radius: 20px;
+    background: #5F4DEE;
+    color: white;
+    border: 2px solid #5F4DEE;
+    margin-top: 2rem;
+    width: 100%;
+    display: block;
+}
+
+.new_project input[type='submit']:hover {
+    cursor: pointer;
+    background: white;
+    color: #5F4DEE;
+}

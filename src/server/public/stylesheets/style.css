@@ -60,7 +60,8 @@ a {
 
 .container {
   padding: 20px;
-  background: #FFFFFF;
+  color: white;
+  background: #5F4DEE;
   overflow: hidden;
 }
 

@@ -3,7 +3,7 @@ head
     include includes/head
     +head
     title 404 Page not found
-    style(tyle="text/css").
+    style.
         body {
             padding: 0px;
             margin: 0px;
@@ -21,3 +21,5 @@ head
         }
 body
     h1(class="vertical") This user was not found!
+    include ./includes/footer
+    +footer()

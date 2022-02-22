@@ -4,7 +4,7 @@ head
     +head
     title='Login Page'
     link(rel='stylesheet', href='/public/stylesheets/login.css')
-body(style="overflow: hidden;")
+body
     include includes/navbar
     +navbar-include(user)
     svg(class="header-frame" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 910")
@@ -32,6 +32,8 @@ body(style="overflow: hidden;")
                 | Need an account?
                 =' '
                 a(href='/signup') SIGN UP
+    include ./includes/footer
+    +footer()
 script.
     async function login(){
         const info = await fetch('/api/login', {

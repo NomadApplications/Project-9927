@@ -15,6 +15,11 @@
     min-height: 300px;
     border-radius: 30px;
     text-align: left;
+    box-shadow: 0px 0px 10px rgba(0,0,0,.3);
+}
+
+.panel:hover {
+    box-shadow: 0px 0px 10px rgba(0,0,0,.7);
 }
 
 .panel h1 {
@@ -27,9 +32,32 @@
     color: white;
 }
 
+.panel h1 span {
+    margin-right: 10px;
+}
+
+.panel h2 {
+    color: #3d3d3d;
+}
+
+.panel h2 span {
+    margin-right: 10px;
+}
+
 #title {
     font-size: 50px;
     color: white;
+}
+
+#settings {
+    text-decoration: none;
+    color: white;
+}
+
+#settings:hover {
+    cursor: pointer;
+    animation: cog .5s forwards;
+    transform: rotate(70deg);
 }
 
 #profile {
@@ -45,12 +73,25 @@
     padding: 10px;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    border-radius: 10px;
+    border: 1px solid #5F4DEE;
 }
 
 #teams input[type="text"] {
-    width: 80%;
+    width: 75%;
 }
 
 #teams input[type="submit"] {
+    margin-left: 5%;
     width: 20%;
+    border-radius: 25px;
+    background-color: #5F4DEE;
+    border: 2px solid #5F4DEE;
+    color: white;
+}
+
+#teams input[type="submit"]:hover {
+    cursor: pointer;
+    background: white;
+    color: #5F4DEE;
 }

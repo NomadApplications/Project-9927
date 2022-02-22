@@ -157,8 +157,7 @@ router.get('/project/:projectId/todo', async(req, res) => {
 });
 router.get('/newproject', async(req,res) => {
     const user = await User.findOne({_id: req.session.userId}).exec();
-    if(user === null) return res.redirect('/');
-    const teams = (await Team.find()).filter(i => i.members.includes(user._id));
+    const teams = user === null ? [] : (await Team.find()).filter(i => i.members.includes(user._id));
     res.render('projects/newProject', {user, teams});
 })
 
