@@ -1,0 +1,56 @@
+.panels {
+    padding: 20px;
+    background: #5F4DEE;
+    min-height: 550px;
+    text-align: center;
+}
+
+.panel {
+    vertical-align: text-top;
+    padding: 30px;
+    margin: 30px;
+    background: white;
+    display: inline-block;
+    min-width: 500px;
+    min-height: 300px;
+    border-radius: 30px;
+    text-align: left;
+}
+
+.panel h1 {
+    margin-top: 0px;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    background: #5F4DEE;
+    color: white;
+}
+
+#title {
+    font-size: 50px;
+    color: white;
+}
+
+#profile {
+
+}
+
+#teams {
+    max-width: 700px;
+    max-height: 600px;
+}
+
+#teams input {
+    padding: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#teams input[type="text"] {
+    width: 80%;
+}
+
+#teams input[type="submit"] {
+    width: 20%;
+}

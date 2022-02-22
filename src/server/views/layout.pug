@@ -8,15 +8,10 @@ html
         include includes/navbar
         +navbar-include(user)
         .header_content
-            if user === null
-                h1 Welcome to Project 9927! The world's first AI generated project idea manager!
-                a(href='/login' class="btn") Login here!
-            else
-                h1
-                    | Logged in! (
-                    a(href="/profile")=`${user.display_name}${user.verified ? " ✔" : ""}`
-                    | )
-                a(href='/api/logout' class="btn") Logout here!
+            .title
+                h1 Project 9927
+            h1 Welcome to Project 9927! The world's first AI generated project idea manager!
+            a(href='/login' class="btn") Login here!
         svg(class="header-frame" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 310")
             defs
                 style.

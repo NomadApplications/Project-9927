@@ -1,21 +1,55 @@
 label {
+    margin-top: 2rem;
+    padding: 0;
     display: block;
 }
 
-input[type='submit'], label {
+input[type='submit'] {
+    padding: 15px;
     margin-top: 1rem;
+    width: 100%;
+    border: none;
+    border-radius: 25px;
+    background-color: #5F4DEE;
+    border: 2px solid #5F4DEE;
+    color: white;
+}
+
+input[type='submit']:hover {
+    cursor: pointer;
+    background: white;
+    color: #5F4DEE;
 }
 
 .login {
+    width: 500px;
     background-color: #F3F7FD;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 20px;
-    border: 2px solid black;
+    border: 2px solid rgba(0,0,0,.7);
+    box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+}
+
+.login p {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.login input[type='text'], input[type='password'], input[type='email'] {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #5F4DEE;
+}
+
+.login:hover {
+    box-shadow: 0px 0px 10px black;
 }
 
 .login .content {
-    margin: 60px;
+    padding: 60px;
 }

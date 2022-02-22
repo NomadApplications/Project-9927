@@ -4,15 +4,20 @@ mixin navbar-include(user)
     .nav
         a(class="logo" href="/" style="float: left;") Project 9927
         ul.nav_list
-            li.nav_buttons
-                a(class="btn" href="/login") Log in
+            if user !== null
+                li.nav_buttons
+                    a(class="btn" href="/api/logout") Logout
+                li.nav_buttons
+                    a(class="btn" href="/profile") Profile
+            else
+                li.nav_buttons
+                    a(class="btn" href="/login") Log in
             li.nav_item
-                a(class="nav_link active" href="pricing") Pricing
+                a(class="nav_link" href="pricing") Pricing
             li.nav_item
                 a(class="nav_link" href="features") Features
             li.nav_item
-                a(class="nav_link" href="/") Home
-
+                a(class="nav_link active" href="/") Home
 
 
 

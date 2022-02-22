@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/NomadApplications/Project-9927#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
     "@discordjs/rest": "^0.2.0-canary.0",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.1",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",

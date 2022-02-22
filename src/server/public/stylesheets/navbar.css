@@ -33,8 +33,8 @@
     text-decoration: none;
 }
 
-.nav .nav_list li a .active {
-    color: #FFFFFF;
+.active {
+    color: #FFFFFF !important;
 }
 
 .nav .nav_list li a:hover {
