@@ -209,8 +209,7 @@ router.get('/todo_data', async (req, res) => {
     if(project === null) return res.send({error:"Project not found!"});
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
 
-    const json = JSON.parse(project.to_do).table;
-    console.log(json);
+    const json = JSON.parse(project.to_do);
     return res.send(json);
 });
 router.get('/set_todo', async(req,res) => {
@@ -223,9 +222,38 @@ router.get('/set_todo', async(req,res) => {
     if(project === null) return res.send({error:"Project not found!"});
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
 
-    const json = {table: JSON.parse(req.headers.data)};
-    await Project.updateOne({_id: project._id}, {to_do: JSON.stringify(json)})
+    const json = req.headers.data;
+    await Project.updateOne({_id: project._id}, {to_do: json})
     res.send(true);
+});
+router.get('/delete_todo', async(req, res) => {
+    if(!req.headers.projectid) return res.send({error:"No ProjectID"});
+    if(!req.session.userId) return res.send({error:'You are not logged in!'});
+    const user = await User.findOne({_id:req.session.userId}).exec();
+    if(user === null) return res.send({error:'You are not logged in!'});
+
+    const project = await Project.findOne({_id: req.headers.projectid}).exec()
+    if(project === null) return res.send({error:"Project not found!"});
+    if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
+
+    const json = JSON.stringify({
+        table: [
+            {
+                id: 1,
+                items: []
+            },
+            {
+                id: 2,
+                items: []
+            },
+            {
+                id: 3,
+                items: []
+            },
+        ]
+    })
+
+    await Project.updateOne({_id: project._id}, {to_do: JSON.stringify(json)})
 });
 
 const googleTrends = require('google-trends-api');

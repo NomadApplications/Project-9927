@@ -9,7 +9,6 @@ class KanbanAPI {
 
     static async insertItem(columnId, content){
         const data = await read();
-        console.log(data);
         const column = data.find(column => column.id == columnId);
         const item = {
             id: Math.floor(Math.random() * 100000),
@@ -29,16 +28,13 @@ class KanbanAPI {
         let item = null;
         let column = null;
 
-        for(let i = 0; i < data.length; i++) {
-            const _column = data[i];
+        data.forEach(_column => {
             const _item = _column.items.find(_i => _i.id == itemId);
-
-            if (_item) {
+            if(_item !== undefined){
                 item = _item;
                 column = _column;
-                break;
             }
-        }
+        });
 
         if(!item) {
             throw new Error("Item not found.");
@@ -73,6 +69,18 @@ class KanbanAPI {
     }
 }
 
+// PERMANENT
+async function deleteTable(){
+    const projectId = window.location.href.split('project/')[1].split('/')[0];
+
+    const f = await fetch('/api/delete_todo', {
+        method: "GET",
+        headers: {
+            projectId: projectId
+        }
+    });
+}
+
 async function read() {
     const projectId = window.location.href.split('project/')[1].split('/')[0];
 
@@ -96,4 +104,15 @@ async function save(data){
         }
     });
     const j = await f.json();
+    return j;
+}
+
+async function deleteTable(){
+    const projectId = window.location.href.split('project/')[1].split('/')[0];
+    const f = await fetch('/api/delete_todo', {
+        method: "GET",
+        headers: {
+            projectId,
+        }
+    });
 }

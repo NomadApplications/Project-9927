@@ -1,13 +1,28 @@
 .kanban {
     display: flex;
-    padding: 20px;
-    background: #f5f5f5;
-    box-shadow: 1px 1px 2px #999999;
     border-radius: 5px;
 }
 
-.kanban * {
-    font-family: sans-serif;
+.kanban_container {
+    text-align: center;
+    background: #f5f5f5;
+    box-shadow: 1px 1px 2px #999999;
+    padding: 20px;
+}
+
+.option_button {
+    padding: 10px;
+    height: 48px;
+    margin: 20px 20px 0px 20px;
+    border-radius: 5px;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: 1px 1px 2px #999999;
+    cursor: pointer;
+}
+
+#refresh:hover {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .kanban__column {

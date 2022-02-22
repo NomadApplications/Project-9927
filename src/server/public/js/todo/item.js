@@ -24,10 +24,10 @@ class Item {
         }
 
         this.elements.input.addEventListener("blur", onBlur);
-        this.elements.root.addEventListener('dblclick', () => {
+        this.elements.root.addEventListener('dblclick', async () => {
             const check = confirm("Are you sure you want to delete this item?");
             if(check){
-                KanbanAPI.deleteItem(id);
+                await KanbanAPI.deleteItem(id);
                 this.elements.input.removeEventListener("blur", onBlur);
                 this.elements.root.parentElement.removeChild(this.elements.root);
             }

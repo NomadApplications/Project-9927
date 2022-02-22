@@ -6,10 +6,16 @@ input[type='submit'], label {
     margin-top: 1rem;
 }
 
-.container {
-    padding: 20px;
-    background: #f5f5f5;
-    border-radius: 5px;
-    box-shadow: 1px 1px 2px #999999;
-    overflow: hidden;
+.login {
+    background-color: #F3F7FD;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+.login .content {
+    margin: 60px;
 }

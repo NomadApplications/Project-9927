@@ -13,17 +13,17 @@ class Column {
         this.elements.items.appendChild(topDropZone);
 
         this.elements.addItem.addEventListener("click", async () => {
-            const newItem = await KanbanAPI.insertItem(id, "");
-
+            const newItem = await KanbanAPI.insertItem(id, "New task");
             this.renderItem(newItem);
         });
+        (async () => await this.updateItems())();
+    }
 
-        (async () => {
-            const items = await KanbanAPI.getItems(id);
-            items.forEach(item => {
-                this.renderItem(item);
-            });
-        })();
+    async updateItems(){
+        const items = await KanbanAPI.getItems(this.elements.root.dataset.id);
+        items.forEach(item => {
+            this.renderItem(item);
+        });
     }
 
     static createRoot() {
