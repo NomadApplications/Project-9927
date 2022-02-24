@@ -75,10 +75,13 @@ script.
     async function joinTeam(){
         const code = document.getElementById('team_code').value;
 
-        await fetch('/api/jointeam', {
+        const j = await (await fetch('/api/jointeam', {
             method: "GET",
             headers: {
                 team_code: code
             }
-        });
+        })).json();
+
+        console.log(j);
+        if(j === true) location.reload();
     }

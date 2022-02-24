@@ -4,6 +4,7 @@ head
     +head
     title='Login Page'
     link(rel='stylesheet', href='/public/stylesheets/login.css')
+    script(src="https://www.google.com/recaptcha/api.js" async defer)
 body
     include includes/navbar
     +navbar-include(user)
@@ -27,6 +28,9 @@ body
                     div
                         label(for="password") Password:
                         input(id='password', value='', type='password' required)
+                    br
+                    div(class="g-recaptcha" data-sitekey="6LemsZkeAAAAADLEbin5AxNuy8iOgFTv2YdTe-p1")
+                    br
                     input(type='submit', value='LOGIN')
             p
                 | Need an account?

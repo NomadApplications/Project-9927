@@ -53,3 +53,9 @@
     background: #FFFFFF;
     color: #5F4DEE;
 }
+
+@media only screen and (max-width: 600px){
+    .nav_list {
+        background: #00B7FF;
+    }
+}

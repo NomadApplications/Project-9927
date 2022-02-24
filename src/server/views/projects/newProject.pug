@@ -11,7 +11,7 @@ body
         h1 CREATE A PROJECT
     .video
         video(id="video-style" width="320" height="240" controls)
-            source(src="movie.mp4" type="video/mp4")
+            source(src="public/newproject.mp4" id='video' type="video/mp4")
             source(src="movie.ogg" type="video/ogg")
             | Your browser does not support the video tag.
     .new_project
@@ -28,14 +28,8 @@ body
                     each val in teams
                         option(value=`${val._id}`)=val.name
                 input(type="submit" value="Create Project")
-    svg(class="header-frame" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 310")
-        defs
-            style.
-                .cls-1 {
-                    display: block;
-                    fill: #5f4def;
-                }
-        path(class="cls-1", d="M0,283.054c22.75,12.98,53.1,15.2,70.635,14.808,92.115-2.077,238.3-79.9,354.895-79.938,59.97-.019,106.17,18.059,141.58,34,47.778,21.511,47.778,21.511,90,38.938,28.418,11.731,85.344,26.169,152.992,17.971,68.127-8.255,115.933-34.963,166.492-67.393,37.467-24.032,148.6-112.008,171.753-127.963,27.951-19.26,87.771-81.155,180.71-89.341,72.016-6.343,105.479,12.388,157.434,35.467,69.73,30.976,168.93,92.28,256.514,89.405,100.992-3.315,140.276-41.7,177-64.9V0.24H0V283.054Z")
+    svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320")
+        path(fill="#5f4def" fill-opacity="1" d="M0,256L60,240C120,224,240,192,360,202.7C480,213,600,267,720,245.3C840,224,960,128,1080,112C1200,96,1320,160,1380,192L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z")
     include ../includes/footer
     +footer()
 script.

@@ -209,7 +209,8 @@ router.get('/todo_data', async (req, res) => {
     if(project === null) return res.send({error:"Project not found!"});
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
 
-    const json = JSON.parse(project.to_do);
+    const json = JSON.parse(project.to_do).table;
+    console.log(json);
     return res.send(json);
 });
 router.get('/set_todo', async(req,res) => {
@@ -222,7 +223,7 @@ router.get('/set_todo', async(req,res) => {
     if(project === null) return res.send({error:"Project not found!"});
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
 
-    const json = req.headers.data;
+    const json = JSON.stringify({table: req.headers.data});
     await Project.updateOne({_id: project._id}, {to_do: json})
     res.send(true);
 });

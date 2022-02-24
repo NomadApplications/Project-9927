@@ -188,9 +188,7 @@ router.get('/user/:username', async(req, res) => {
 })
 router.get('/404', (req, res) => res.render('404'));
 router.get('/ideas', async(req,res) => {
-    if(req.session.userId === undefined) return res.redirect('/')
-    const user = await User.findOne({_id: req.session.userId}).exec();
-    if(user === null) return res.redirect('/');
+    const user = req.session.userId === undefined ? null : await User.findOne({_id: req.session.userId}).exec();
 
     res.render('ideas/ideas', {user});
 });

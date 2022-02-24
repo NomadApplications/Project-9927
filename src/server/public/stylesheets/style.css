@@ -68,3 +68,8 @@ a {
 .container:nth-child(odd){
   background-color: #F3F7FD;
 }
+
+.spacer {
+  background: #5F4DEE;
+  padding: 30px;
+}

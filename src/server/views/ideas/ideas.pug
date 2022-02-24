@@ -3,7 +3,7 @@ head
     include ../includes/head
     +head
     title Idea Generator | Project 9927
-    link(rel="stylesheet", href="public/ideas/ideas.css")
+    link(rel="stylesheet", href="public/stylesheets/ideas/ideas.css")
 body
     include ../includes/navbar
     +navbar-include(user)
@@ -11,27 +11,31 @@ body
         .title
             h1(style="text-align: center;") Idea Generator
         .idea_generator
-            h2(id="idea") Your AI generated idea will show up here!
+            h2 Your AI generated idea will show up here!
             label(for="topics") Topics (separated by ,)
             input(id="topics" type="text")
+            p(id="idea")
             button(onclick="generate()") Generate idea
-    svg(class="header-frame" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 310")
-        defs
-            style.
-                .cls-1 {
-                    display: block;
-                    fill: #5f4def;
-                }
-        path(class="cls-1", d="M0,283.054c22.75,12.98,53.1,15.2,70.635,14.808,92.115-2.077,238.3-79.9,354.895-79.938,59.97-.019,106.17,18.059,141.58,34,47.778,21.511,47.778,21.511,90,38.938,28.418,11.731,85.344,26.169,152.992,17.971,68.127-8.255,115.933-34.963,166.492-67.393,37.467-24.032,148.6-112.008,171.753-127.963,27.951-19.26,87.771-81.155,180.71-89.341,72.016-6.343,105.479,12.388,157.434,35.467,69.73,30.976,168.93,92.28,256.514,89.405,100.992-3.315,140.276-41.7,177-64.9V0.24H0V283.054Z")
+    .spacer
+    .spacer
+    svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320")
+        path(fill="#5f4def" fill-opacity="1" d="M0,64L60,74.7C120,85,240,107,360,138.7C480,171,600,213,720,192C840,171,960,85,1080,58.7C1200,32,1320,64,1380,80L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z")
     include ../includes/footer
     +footer()
 script.
     async function generate(){
+        if(document.getElementById('topics').value == '') return;
         const idea = await (await fetch("/api/idea", {
             method: "GET",
             headers:{
                 topics: document.getElementById('topics').value,
             }
         })).json();
-        document.getElementById("idea").innerHTML = `<a target="_blank" href="https://trends.google.com${idea.random.link}">${idea.random.topic.title}</a>`;
+        let toAdd = `<a target="_blank" href="https://trends.google.com${idea.random.link}">${idea.random.topic.title}</a>`;
+        if(document.getElementById("idea").innerHTML == ''){
+            toAdd = 'Ideas: ' + toAdd;
+        } else {
+            toAdd = ', ' + toAdd;
+        }
+        document.getElementById("idea").innerHTML += toAdd;
     }

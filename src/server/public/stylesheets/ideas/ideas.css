@@ -1,4 +1,40 @@
 .idea_generator {
     background: #FFFFFF;
     color: #5F4DEE;
+    padding: 30px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 50%;
+    border-radius: 20px;
+}
+
+.idea_generator label, button {
+    display: block;
+    margin-top: 2rem;
+}
+
+input[type='text'], button {
+    padding: 10px;
+    border: 2px solid #5F4DEE;
+}
+
+input[type='text'] {
+    margin-top: 1rem;
+    border: 1px solid #5F4DEE;
+    border-radius: 10px;
+}
+
+button {
+    background: #5F4DEE;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 20px;
+}
+
+button:hover {
+    background: white;
+    color: #5F4DEE;
+    cursor: pointer;
 }
