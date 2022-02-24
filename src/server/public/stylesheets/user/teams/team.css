@@ -1,0 +1,31 @@
+.information {
+    background: white;
+    border-radius: 25px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 30px;
+    color: #5F4DEE;
+    margin-top: 4rem;
+    width: 60%;
+}
+
+#team_code {
+    text-align: center;
+    margin-top: -30px;
+    background: white;
+    color: #5F4DEE;
+    padding: 10px;
+    border-radius: 25px;
+    width: 200px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+#team_code:hover {
+    background: rgba(255, 255, 255, .8);
+    cursor: pointer;
+}

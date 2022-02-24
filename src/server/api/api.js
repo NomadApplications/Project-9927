@@ -210,8 +210,7 @@ router.get('/todo_data', async (req, res) => {
     if(project.to_do === undefined) return res.send({error:"There is no todo list!"});
 
     const json = JSON.parse(project.to_do).table;
-    console.log(json);
-    return res.send(json);
+    return res.send(json || []);
 });
 router.get('/set_todo', async(req,res) => {
     if(!req.headers.projectid) return res.send({error:"No ProjectID"});
@@ -254,7 +253,7 @@ router.get('/delete_todo', async(req, res) => {
         ]
     })
 
-    await Project.updateOne({_id: project._id}, {to_do: JSON.stringify(json)})
+    await Project.updateOne({_id: project._id}, {to_do: json})
 });
 
 const googleTrends = require('google-trends-api');

@@ -38,7 +38,7 @@
     background: rgba(0, 0, 0, 0.05);
     padding: 20px;
     border-radius: 25px;
-    height: 500px;
+    min-height: 500px;
 }
 
 .kanban__column:not(:last-child) {
@@ -48,9 +48,10 @@
 .kanban__column-title {
     margin-bottom: 20px;
     font-size: 30px;
-    color: black;
+    color: #5F4DEE;
     user-select: none;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 .kanban__item-input {

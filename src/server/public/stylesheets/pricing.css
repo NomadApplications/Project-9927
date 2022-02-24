@@ -1,0 +1,55 @@
+.pricing {
+    background-color: #5F4DEE;
+    text-align: center;
+}
+
+.pricing .card {
+    text-align: left;
+    vertical-align: text-top;
+    padding: 30px;
+    background: white;
+    color: #5F4DEE;
+    width: 300px;
+    height: 310px;
+    display: inline-block;
+    margin: 50px;
+    border-radius: 25px;
+}
+
+.pricing .card:hover {
+    transform: scale(1.1);
+}
+
+.pricing .card h1 {
+    text-transform: uppercase;
+}
+
+.pricing .card ul {
+    list-style: none;
+    padding: 10px;
+}
+
+.pricing .card li:not(:first-child) {
+    margin-top: 20px;
+}
+
+.pricing .card .button_holder {
+    text-align: center;
+}
+
+.pricing .card button {
+    width: 100%;
+    padding: 10px 25px;
+    background: #5F4DEE;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+    border: 2px solid #5F4DEE;
+    border-radius: 20px;
+}
+
+.pricing .card button:hover {
+    background: white;
+    color: #5F4DEE;
+    cursor: pointer;
+}

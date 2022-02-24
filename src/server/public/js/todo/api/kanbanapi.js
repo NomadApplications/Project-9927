@@ -79,6 +79,7 @@ async function deleteTable(){
             projectId: projectId
         }
     });
+    init();
 }
 
 async function read() {
@@ -105,14 +106,4 @@ async function save(data){
     });
     const j = await f.json();
     return j;
-}
-
-async function deleteTable(){
-    const projectId = window.location.href.split('project/')[1].split('/')[0];
-    const f = await fetch('/api/delete_todo', {
-        method: "GET",
-        headers: {
-            projectId,
-        }
-    });
 }

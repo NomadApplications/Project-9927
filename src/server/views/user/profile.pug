@@ -23,8 +23,12 @@ body
             h2
                 span(class="fa fa-signal")
                 | Profile Stats
-            p=`${user.projects.length} Projects`
-            p=`${teams.length} Teams`
+            p
+                span(class="fa fa-list")
+                =` ${user.projects.length} Projects`
+            p
+                span(class="fa fa-users")
+                =` ${teams.length} Teams`
         .panel(id="teams")
             h1
                 span(class="fa fa-users")

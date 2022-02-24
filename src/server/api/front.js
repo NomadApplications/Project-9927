@@ -82,6 +82,13 @@ router.get('/team/:teamId', async(req, res) => {
     const team = await Team.findOne({_id: req.params.teamId}).exec();
     if(team === null) return res.redirect('/');
 
+    const members = [];
+    for(let i = 0; i < team.members.length; i++){
+        const m = await User.findOne({_id: team.members[i]}).exec();
+        if(m !== null)
+            members.push(m);
+    }
+
     const projects = [];
     for(let i = 0; i < team.projects.length; i++) {
         const p = await Project.findOne({_id: team.projects[i]}).exec();
@@ -92,7 +99,8 @@ router.get('/team/:teamId', async(req, res) => {
     res.render('user/team/team', {
         user,
         team,
-        projects
+        projects,
+        members
     });
 });
 router.get('/project/:projectId', async(req, res) => {
@@ -165,6 +173,10 @@ router.get('/newproject', async(req,res) => {
 //                   PUBLIC
 // ===============================================
 
+router.get('/pricing', async(req, res) => {
+    const user = req.session.userId === undefined ? null : await User.findOne({_id: req.session.userId}).exec();
+    res.render('pricing', {user})
+})
 router.get('/user/:username', async(req, res) => {
     const user = await User.findOne({username: req.params.username}).exec();
     if(user === null){
@@ -175,6 +187,7 @@ router.get('/user/:username', async(req, res) => {
         res.render('404');
         return;
     }
+    const teams = (await Team.find()).filter(i => i.members.includes(user._id));
     const projects = [];
     for(let i = 0; i < user.projects.length; i++){
         const p = await Project.findOne({_id: user.projects[i]}).exec();
@@ -183,13 +196,13 @@ router.get('/user/:username', async(req, res) => {
     }
     res.render('user/publicUser', {
         projects,
-        user
+        user,
+        teams
     })
 })
 router.get('/404', (req, res) => res.render('404'));
 router.get('/ideas', async(req,res) => {
     const user = req.session.userId === undefined ? null : await User.findOne({_id: req.session.userId}).exec();
-
     res.render('ideas/ideas', {user});
 });
 
