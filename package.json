@@ -35,7 +35,8 @@
     "nm-discord-intents": "^1.0.3",
     "node-fetch": "^2.6.1",
     "nodemailer": "^6.7.2",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "stripe": "^8.204.0"
   },
   "devDependencies": {
     "dotenv": "^14.2.0"

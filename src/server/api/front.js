@@ -173,10 +173,39 @@ router.get('/newproject', async(req,res) => {
 //                   PUBLIC
 // ===============================================
 
+const STRIPE_API = require("../../subscriptions/stripe");
 router.get('/pricing', async(req, res) => {
     const user = req.session.userId === undefined ? null : await User.findOne({_id: req.session.userId}).exec();
-    res.render('pricing', {user})
+    const products = await STRIPE_API.getProductsAndPlans();
+
+    const valid = products.find(p => p.name == req.query.Plan) !== undefined;
+
+    res.render('pricing', {
+        user,
+        products,
+        valid,
+        plan: valid ? {
+            currentPlan: req.query.Plan,
+            features: valid ? products.find(p => p.name == req.query.Plan).plans[0].features : []
+        } : null,
+    })
 })
+router.post('/handlePayment', async (req, res) => {
+    const parsedPlan = JSON.parse(req.body.plan);
+
+    const customerInfo = {
+        name: req.body.name,
+        email: req.body.email,
+        planId: parsedPlan.id,
+    };
+
+    const subscription = await STRIPE_API.createCustomerAndSubscription(
+        req.body.paymentMethodId,
+        customerInfo,
+    );
+
+    return res.json({ subscription });
+});
 router.get('/user/:username', async(req, res) => {
     const user = await User.findOne({username: req.params.username}).exec();
     if(user === null){

@@ -6,6 +6,8 @@ html
         title Project 9927 | Pricing
         link(rel="stylesheet", href="public/stylesheets/pricing.css")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+        script(src="https://js.stripe.com/v3/")
+        script(src="public/js/payment/checkout.js")
     body
         include includes/navbar
         +navbar-include(user)
@@ -24,34 +26,61 @@ html
                         span(class="fa fa-list")
                         |  3 projects
                 .button_holder
-                    a(href="#")
+                    a(href="#" id="button")
                         button Current Plan
-            .card
-                h1 Business
-                p Includes
-                ul
-                    li
-                        span(class="fa fa-users")
-                        |  10 teams
-                    li
-                        span(class="fa fa-list")
-                        |  10 projects
-                .button_holder
-                    a(href="#")
-                        button Upgrade
-            .card
-                h1 Premium
-                p Includes
-                ul
-                    li
-                        span(class="fa fa-users")
-                        |  Unlimited teams
-                    li
-                        span(class="fa fa-list")
-                        |  Unlimited projects
-                .button_holder
-                    a(href="#")
-                        button Upgrade
+            each product in products
+                each plan in product.plans
+                    .card
+                        h1=product.name
+                        ul
+                            each feature in plan.features
+                                li=feature
+                        .button_holder
+                            a(href=`pricing?Plan=${product.name}`)
+                                button='Upgrade ' + plan.amount
+        .payment_overlay
+            div(id="overlay")
+                div(id="plan")
+                    h1
+                        span(id="plan__name")
+                    ul(id="_features" style="text-align: left;")
+                div(id="purchase")
+                    h1 Upgrade to
+                        span(id="plan_name")
+                    form(id="payment-form")
+                        div(id="payment-element")
+                        button(id="submit")
+                            div(class="spinner hidden" id="spinner")
+                                span(id="button-text") Pay now
+                        div(id="payment-message" class="hidden")
+        script.
+            console.log(#{valid});
+            if(#{valid}){
+                enableOverlay();
+            } else {
+                disableOverlay();
+            }
+
+            function enableOverlay() {
+                document.getElementById('plan_name').innerHTML = ' ' + "#{plan.currentPlan}";
+                document.getElementById('plan__name').innerHTML = ' ' + "#{plan.currentPlan}";
+
+                const features = document.getElementById('_features');
+                const project_features = "#{plan.features}".split(",");
+                for(let i = 0; i < project_features.length; i++){
+                    const f = project_features[i];
+                    const l = document.createElement('li');
+                    const t = document.createTextNode(f);
+                    l.appendChild(t);
+                    features.appendChild(l);
+                }
+
+                document.querySelector('.payment_overlay').style.display = "block";
+            }
+
+            function disableOverlay() {
+                document.querySelector('.payment_overlay').style.display = "none";
+            }
         svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 220")
             path(fill="#5F4DEE" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,192C384,181,480,139,576,128C672,117,768,139,864,138.7C960,139,1056,117,1152,96C1248,75,1344,53,1392,42.7L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z")
         include ./includes/footer
