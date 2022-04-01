@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 global.Discord = require('discord.js');
 global.color = "#5f4def";
 const intents = require('nm-discord-intents').intents;
@@ -7,7 +5,7 @@ const intents = require('nm-discord-intents').intents;
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 
-const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
+const rest = new REST({ version: '9' }).setToken("OTMzNzkwOTU5Nzk0MjgyNTU3.YemqmQ.WJpHl5oD86eVgtVugI-HyreNT_U");
 
 /**
  * Start the Discord bot
@@ -33,7 +31,7 @@ function startBot() {
             type: "WATCHING"
         });
     });
-    client.login(process.env.TOKEN).catch(err => console.error(err));
+    client.login("OTMzNzkwOTU5Nzk0MjgyNTU3.YemqmQ.WJpHl5oD86eVgtVugI-HyreNT_U").catch(err => console.error(err));
 
     return new Promise((resolve, reject) => {
         resolve(client);
